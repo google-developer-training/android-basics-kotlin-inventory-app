@@ -54,6 +54,9 @@ android {
     }
 }
 
+configurations {
+    ktlint
+}
 dependencies {
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"
@@ -74,4 +77,23 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
+
+    // Ktlint
+    ktlint "com.pinterest:ktlint:0.40.0"
+}
+
+// Disable the 'paren-spacing' rule which conflicts with non-paren annotations on functional types
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args "src/**/*.kt", "--disabled_rules", "paren-spacing"
+}
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args "-F", "src/**/*.kt", "--disabled_rules", "paren-spacing"
 }
