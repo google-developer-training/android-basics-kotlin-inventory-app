@@ -24,7 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InventoryApp">
-        <activity android:name="com.example.inventory.MainActivity">
+        <activity
+            android:exported="true"
+            android:name="com.example.inventory.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

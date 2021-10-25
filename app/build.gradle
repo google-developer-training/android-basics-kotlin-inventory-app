@@ -22,13 +22,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.inventory"
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -43,7 +43,7 @@ android {
         }
     }
     buildFeatures {
-        viewBinding = true
+        viewBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -60,7 +60,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "com.google.android.material:material:$material_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // Lifecycle libraries
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
