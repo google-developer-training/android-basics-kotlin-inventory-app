@@ -18,22 +18,22 @@
 buildscript {
     ext {
         activity_version = '1.1.0'
-        appcompat_version = '1.5.1'
+        appcompat_version = '1.6.0'
         constraintlayout_version = '2.1.4'
         core_ktx_version = '1.9.0'
         coroutines_version = '1.4.2'
-        kotlin_version = '1.7.10'
+        kotlin_version = '1.8.0'
         lifecycle_version = '2.5.1'
-        material_version = '1.6.1'
-        nav_version = '2.5.2'
-        room_version = '2.4.3'
+        material_version = '1.8.0'
+        nav_version = '2.5.3'
+        room_version = '2.5.0'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
