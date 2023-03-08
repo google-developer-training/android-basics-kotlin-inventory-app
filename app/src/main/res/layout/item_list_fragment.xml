@@ -56,15 +56,6 @@
         app:layout_constraintStart_toEndOf="@+id/item_price"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/divider"
-        style="@style/Divider"
-        android:layout_marginTop="@dimen/margin_between_elements"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_quantity" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -78,13 +69,13 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_between_elements"
-        android:layout_marginBottom="@dimen/margin_between_elements"
+        android:layout_marginEnd="4dp"
         android:contentDescription="@string/add_new_item"
         android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+        app:layout_constraintBottom_toTopOf="@+id/divider1"
+        app:tint="@android:color/white"
+        tools:layout_editor_absoluteY="518dp" />
 
     <View
         android:id="@+id/divider1"
@@ -100,10 +91,20 @@
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton">
+
+        <View
+            android:id="@+id/divider2"
+            style="@style/Divider"
+            android:layout_marginTop="@dimen/margin_between_elements"
+            android:layout_marginBottom="@dimen/margin_between_elements"
+            app:layout_constraintBottom_toTopOf="@+id/SFContainerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grocerySearchView" />
 
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
