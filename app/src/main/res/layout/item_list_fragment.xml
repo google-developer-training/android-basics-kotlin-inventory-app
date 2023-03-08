@@ -138,6 +138,7 @@
                     android:id="@+id/All"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="All"/>
     <!--                android:onClick="filterAll"/>-->
 
@@ -145,6 +146,7 @@
                     android:id="@+id/Fruits"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Fruits"/>
     <!--                android:onClick="filterFruits"/>-->
 
@@ -152,6 +154,7 @@
                     android:id="@+id/Vegetables"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Vegetables"/>
     <!--                android:onClick="filterVegetables"/>-->
 
@@ -159,6 +162,7 @@
                     android:id="@+id/Canned"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Canned Goods"/>
     <!--                android:onClick="filterCanned"/>-->
 
@@ -166,6 +170,7 @@
                     android:id="@+id/Dairy"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Dairy"/>
     <!--                android:onClick="filterDairy"/>-->
 
@@ -173,6 +178,7 @@
                     android:id="@+id/Meat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Meat"/>
     <!--                android:onClick="filterMeat"/>-->
 
@@ -180,6 +186,7 @@
                     android:id="@+id/Seafood"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Seafood"/>
     <!--                android:onClick="filterSeafood"/>-->
 
@@ -187,6 +194,7 @@
                     android:id="@+id/Deli"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Deli"/>
     <!--                android:onClick="filterDeli"/>-->
 
@@ -194,6 +202,7 @@
                     android:id="@+id/Condiments"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Condiments"/>
     <!--                android:onClick="filterCondiments"/>-->
 
@@ -201,6 +210,7 @@
                     android:id="@+id/Snacks"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Snacks"/>
     <!--                android:onClick="filterSnacks"/>-->
 
@@ -208,6 +218,7 @@
                     android:id="@+id/Bakery"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Bakery"/>
     <!--                android:onClick="filterBakery"/>-->
 
@@ -215,6 +226,7 @@
                     android:id="@+id/Beverages"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Beverages"/>
     <!--                android:onClick="filterBeverages"/>-->
 
@@ -222,6 +234,7 @@
                     android:id="@+id/PRC"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Pasta, Rice and Cereal"/>
     <!--                android:onClick="filterPRC"/>-->
 
@@ -229,6 +242,7 @@
                     android:id="@+id/Frozen"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Frozen"/>
     <!--                android:onClick="filterFrozen"/>-->
 
@@ -236,6 +250,7 @@
                     android:id="@+id/PersonalCare"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:text="Personal Care"/>
     <!--                android:onClick="filterPersonalCare"/>-->
 
