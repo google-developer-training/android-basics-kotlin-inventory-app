@@ -60,6 +60,15 @@
         app:layout_constraintTop_toBottomOf="@+id/item_price"
         tools:text="5" />
 
+    <TextView
+        android:id="@+id/item_sum"
+        style="@style/Widget.Inventory.TextView"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_count_label"
+        tools:text="Item Sum" />
+
     <Button
         android:id="@+id/sell_item"
         android:layout_width="0dp"
@@ -69,7 +78,7 @@
         app:layout_constraintBottom_toTopOf="@+id/delete_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_count" />
+        app:layout_constraintTop_toBottomOf="@+id/item_sum" />
 
     <Button
         android:id="@+id/delete_item"

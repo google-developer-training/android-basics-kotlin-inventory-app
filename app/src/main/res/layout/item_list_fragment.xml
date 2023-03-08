@@ -39,9 +39,21 @@
         android:layout_marginStart="@dimen/margin_between_elements"
         android:text="@string/price"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/item_quantity"
+        app:layout_constraintEnd_toStartOf="@+id/item_sum"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/item_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_sum"
+        style="@style/Widget.Inventory.Header"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/margin_between_elements"
+        android:text="Sum in Stock"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/item_quantity"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/item_price"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -53,7 +65,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_price"
+        app:layout_constraintStart_toEndOf="@+id/item_sum"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
