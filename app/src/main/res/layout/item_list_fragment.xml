@@ -86,4 +86,199 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white" />
 
+    <View
+        android:id="@+id/divider1"
+        style="@style/Divider"
+        android:layout_marginTop="@dimen/margin_between_elements"
+        app:layout_constraintBottom_toTopOf="@+id/SFContainerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <LinearLayout
+        android:id="@+id/SFContainerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/grocerySearchView"
+            android:iconifiedByDefault="false"
+            android:queryHint="GroceryName"/>
+
+        <View
+            android:id="@+id/divider1"
+            style="@style/Divider"
+            android:layout_marginTop="@dimen/margin_between_elements"
+            android:layout_marginBottom="@dimen/margin_between_elements"
+            app:layout_constraintBottom_toTopOf="@+id/SFContainerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grocerySearchView" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/All"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="All"
+                android:onClick="filterAll"/>
+
+            <Button
+                android:id="@+id/Fruits"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Fruits"
+                android:onClick="filterFruits"/>
+
+            <Button
+                android:id="@+id/Vegetables"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Vegetables"
+                android:onClick="filterVegetables"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Canned"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Canned Goods"
+                android:onClick="filterCanned"/>
+
+            <Button
+                android:id="@+id/Dairy"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Dairy"
+                android:onClick="filterDairy"/>
+
+            <Button
+                android:id="@+id/Meat"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Meat"
+                android:onClick="filterMeat"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Seafood"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Seafood"
+                android:onClick="filterSeafood"/>
+
+            <Button
+                android:id="@+id/Deli"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Deli"
+                android:onClick="filterDeli"/>
+
+            <Button
+                android:id="@+id/Condiments"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Condiments"
+                android:onClick="filterCondiments"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Snacks"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Snacks"
+                android:onClick="filterSnacks"/>
+
+            <Button
+                android:id="@+id/Bakery"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Bakery"
+                android:onClick="filterBakery"/>
+
+            <Button
+                android:id="@+id/Beverages"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Beverages"
+                android:onClick="filterBeverages"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/PRC"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Pasta, Rice and Cereal"
+                android:onClick="filterPRC"/>
+
+            <Button
+                android:id="@+id/Frozen"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Frozen"
+                android:onClick="filterFrozen"/>
+
+            <Button
+                android:id="@+id/PersonalCare"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Personal Care"
+                android:onClick="filterPersonalCare"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
