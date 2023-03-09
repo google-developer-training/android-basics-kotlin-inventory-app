@@ -37,9 +37,9 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Returns true if stock is available to sell, false otherwise.
      */
-    fun isStockAvailable(item: Item): Boolean {
-        return (item.quantityInStock > 0)
-    }
+//    fun isStockAvailable(item: Item): Boolean {
+//        return (item.quantityInStock > 0)
+//    }
 
     /**
      * Updates an existing Item in the database.
@@ -48,9 +48,10 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemId: Int,
         itemName: String,
         itemPrice: String,
-        itemCount: String
+        itemCount: String,
+        itemSum: String,
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)
+        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount, itemSum)
         updateItem(updatedItem)
     }
 
@@ -67,19 +68,19 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Decreases the stock by one unit and updates the database.
      */
-    fun sellItem(item: Item) {
-        if (item.quantityInStock > 0) {
-            // Decrease the quantity by 1
-            val newItem = item.copy(quantityInStock = item.quantityInStock - 1)
-            updateItem(newItem)
-        }
-    }
+//    fun sellItem(item: Item) {
+//        if (item.quantityInStock > 0) {
+//            // Decrease the quantity by 1
+//            val newItem = item.copy(quantityInStock = item.quantityInStock - 1)
+//            updateItem(newItem)
+//        }
+//    }
 
     /**
      * Inserts the new Item into database.
      */
-    fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
-        val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
+    fun addNewItem(itemName: String, itemPrice: String, itemCount: String, itemSum: String) {
+        val newItem = getNewItemEntry(itemName, itemPrice, itemCount, itemSum)
         insertItem(newItem)
     }
 
@@ -111,8 +112,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Returns true if the EditTexts are not empty
      */
-    fun isEntryValid(itemName: String, itemPrice: String, itemCount: String): Boolean {
-        if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
+    fun isEntryValid(itemName: String, itemPrice: String, itemCount: String, itemSum: String): Boolean {
+        if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank() || itemSum.isBlank()) {
             return false
         }
         return true
@@ -122,11 +123,15 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Returns an instance of the [Item] entity class with the item info entered by the user.
      * This will be used to add a new entry to the Inventory database.
      */
-    private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String): Item {
+    private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String, itemSum: String): Item {
         return Item(
             itemName = itemName,
-            itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            itemPrice = itemPrice,
+            quantityInStock = itemCount,
+            itemSum = itemSum
+//            itemPrice = itemPrice.toDouble(),
+//            quantityInStock = itemCount.toInt(),
+//            itemSum = itemSum.toInt()
         )
     }
 
@@ -138,13 +143,18 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemId: Int,
         itemName: String,
         itemPrice: String,
-        itemCount: String
+        itemCount: String,
+        itemSum: String,
     ): Item {
         return Item(
             id = itemId,
             itemName = itemName,
-            itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            itemPrice = itemPrice,
+            quantityInStock = itemCount,
+            itemSum = itemSum
+//            itemPrice = itemPrice.toDouble(),
+//            quantityInStock = itemCount.toInt(),
+//            itemSum = itemSum.toInt()
         )
     }
 }
