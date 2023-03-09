@@ -18,7 +18,6 @@ package com.example.inventory.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.text.NumberFormat
 
 /**
  * Entity data class represents a single row in the database.
@@ -27,7 +26,7 @@ import java.text.NumberFormat
 data class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "itemName")
     val itemName: String,
     @ColumnInfo(name = "price")
     val itemPrice: String,
@@ -35,6 +34,20 @@ data class Item(
     val quantityInStock: String,
     @ColumnInfo(name = "sum")
     val itemSum: String,
+    @ColumnInfo(name = "name", defaultValue = "Apple")
+    val name: String = "Apple",
+    @ColumnInfo(name = "expiryDate", defaultValue = "1680291840000" /* default = March 31 2023*/)
+    val expiryDate: Long = 1680291840000,
+    @ColumnInfo(name = "label", defaultValue = "")
+    val label: String = "",
+    @ColumnInfo(name = "image", defaultValue = "")
+    val imagePath: String = "",
+    @ColumnInfo(name = "discarded", defaultValue = false.toString())
+    val discarded: Boolean = false,
+    @ColumnInfo(name = "addedOn", defaultValue = "1678394640000" /* default = March 1 2023*/)
+    val addedOn: Long = 1678394640000,
+    @ColumnInfo(name = "updatedOn", defaultValue = "1678394640000" /* default = March 1 2023*/)
+    val updatedOn: Long = 1678394640000,
 )
 /**
  * Returns the passed in price in currency format.
