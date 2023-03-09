@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toStartOf="@+id/item_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Cogs" />
+        tools:text="Apple" />
 
     <TextView
         android:id="@+id/item_price"
@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/item_name"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="$4.99" />
+        tools:text="2000-12-10" />
 
     <TextView
         android:id="@+id/item_sum"
@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/item_price"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="15" />
+        tools:text="Fruit" />
 
     <TextView
         android:id="@+id/item_quantity"
@@ -70,6 +70,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="3" />
+        tools:text="Jack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

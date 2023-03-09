@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
-            android:hint="@string/item_name_req"
+            android:hint="Ingredient Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -48,17 +48,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
-            android:hint="@string/item_price_req"
+            android:hint="Expiry Date (YYYY-MM-DD)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_name_label"
-            app:prefixText="@string/currency_symbol">
+            app:layout_constraintTop_toBottomOf="@+id/item_name_label">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/item_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="numberDecimal"
+                android:inputType="text"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
-            android:hint="@string/quantity_req"
+            android:hint="Enter a label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_price_label">
@@ -76,7 +75,7 @@
                 android:id="@+id/item_count"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"
+                android:inputType="text"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +84,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
-            android:hint="Sum in Stock *"
+            android:hint="Owner"
             app:layout_constraintBottom_toTopOf="@+id/save_action"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +94,7 @@
                 android:id="@+id/item_sum"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"
+                android:inputType="text"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
