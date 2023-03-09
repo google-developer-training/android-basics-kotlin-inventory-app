@@ -34,4 +34,9 @@
     <string name="currency_symbol">$</string>
     <string name="edit_item">Edit Item</string>
     <string name="add_new_item">Add new item</string>
+    <string name="notify">Notify</string>
+    <string name="channel_name">Expirations</string>
+    <string name="channel_description">Notification channel for ingredient expiry messages</string>
+    <string name="expiring_soon">Expiring Soon</string>
+    <string name="expiration_message">%1$s expires in %2$d days</string>
 </resources>

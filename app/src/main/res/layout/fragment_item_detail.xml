@@ -78,9 +78,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
         android:text="@string/delete"
+        app:layout_constraintBottom_toTopOf="@+id/send_notification"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sell_item" />
+
+    <Button
+        android:id="@+id/send_notification"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:text="@string/notify"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/edit_item"
