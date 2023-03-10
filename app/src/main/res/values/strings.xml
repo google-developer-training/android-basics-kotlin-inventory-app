@@ -35,6 +35,7 @@
     <string name="edit_item">Edit Item</string>
     <string name="add_new_item">Add new item</string>
     <string name="select_label">Select Label</string>
+    <string name="upload">Upload Photo</string>
     <string name="notify">Notify</string>
     <string name="channel_name">Expirations</string>
     <string name="channel_description">Notification channel for ingredient expiry messages</string>
