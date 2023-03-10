@@ -25,13 +25,12 @@
     <TextView
         android:id="@+id/item_name"
         style="@style/Widget.Inventory.ListItemTextView"
-        android:layout_width="180dp"
-        android:layout_marginStart="@dimen/margin_between_elements"
+        android:layout_width="wrap_content"
         android:fontFamily="sans-serif"
         app:layout_constraintEnd_toStartOf="@+id/item_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Cogs and Widgets" />
+        tools:text="Apple" />
 
     <TextView
         android:id="@+id/item_price"
@@ -41,11 +40,24 @@
         android:layout_marginStart="@dimen/margin_between_elements"
         android:fontFamily="sans-serif-medium"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/item_quantity"
+        app:layout_constraintEnd_toStartOf="@+id/item_sum"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@+id/item_name"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="$4.99" />
+        tools:text="2000-12-10" />
+
+    <TextView
+        android:id="@+id/item_sum"
+        style="@style/Widget.Inventory.ListItemTextView"
+        android:layout_width="100dp"
+        android:layout_marginStart="@dimen/margin_between_elements"
+        android:fontFamily="sans-serif-medium"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/item_quantity"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/item_price"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Fruit" />
 
     <TextView
         android:id="@+id/item_quantity"
@@ -58,6 +70,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="3" />
+        tools:text="Jack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,7 @@
         android:id="@+id/item_name"
         style="@style/Widget.Inventory.Header"
         android:layout_marginStart="@dimen/margin_between_elements"
-        android:text="@string/item"
+        android:text="Ingredient"
         app:layout_constraintEnd_toStartOf="@+id/item_price"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,23 +37,36 @@
         style="@style/Widget.Inventory.Header"
         android:layout_below="@+id/item_name"
         android:layout_marginStart="@dimen/margin_between_elements"
-        android:text="@string/price"
+        android:text="Expiry Date"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/item_sum"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/item_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_sum"
+        style="@style/Widget.Inventory.Header"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/margin_between_elements"
+        android:text="Labels"
         android:textAlignment="center"
         app:layout_constraintEnd_toStartOf="@+id/item_quantity"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_name"
+        app:layout_constraintStart_toEndOf="@+id/item_price"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_quantity"
         style="@style/Widget.Inventory.Header"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/margin_between_elements"
         android:layout_marginEnd="@dimen/margin_between_elements"
-        android:text="@string/quantity_in_stock"
+        android:text="Owner"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_price"
+        app:layout_constraintStart_toEndOf="@+id/item_sum"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

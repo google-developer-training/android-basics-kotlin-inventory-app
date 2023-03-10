@@ -14,11 +14,11 @@
   ~ limitations under the License.
   -->
 <resources>
-    <string name="app_name">Inventory</string>
+    <string name="app_name">Food Expiry Tracker</string>
     <string name="sell">Sell</string>
     <string name="quantity">Quantity in Stock:</string>
     <string name="quantity_req">Quantity in Stock <font color='#FF0000'>*</font></string>
-    <string name="item_name_req">Item Name <font color='#FF0000'>*</font></string>
+    <string name="item_name_req">Ingredient Name <font color='#FF0000'>*</font></string>
     <string name="item_price_req">Item Price <font color='#FF0000'>*</font></string>
     <string name="save_action">Save</string>
     <string name="item_detail_fragment_title">Item Details</string>
@@ -34,6 +34,7 @@
     <string name="currency_symbol">$</string>
     <string name="edit_item">Edit Item</string>
     <string name="add_new_item">Add new item</string>
+    <string name="select_label">Select Label</string>
     <string name="notify">Notify</string>
     <string name="channel_name">Expirations</string>
     <string name="channel_description">Notification channel for ingredient expiry messages</string>
