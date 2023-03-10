@@ -16,10 +16,15 @@
 
 package com.example.inventory
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -45,6 +50,8 @@ class ItemDetailFragment : Fragment() {
     private var _binding: FragmentItemDetailBinding? = null
     private val binding get() = _binding!!
 
+    private var notificationId: Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,6 +74,7 @@ class ItemDetailFragment : Fragment() {
 //            sellItem.isEnabled = viewModel.isStockAvailable(item)
 //            sellItem.setOnClickListener { viewModel.sellItem(item) }
             deleteItem.setOnClickListener { showConfirmationDialog() }
+            sendNotification.setOnClickListener { sendNotification() }
             editItem.setOnClickListener { editItem() }
         }
     }
@@ -103,6 +111,26 @@ class ItemDetailFragment : Fragment() {
     private fun deleteItem() {
         viewModel.deleteItem(item)
         findNavController().navigateUp()
+    }
+
+    /**
+     * Sends a push notification to inform the user of the expiry date
+     */
+    private fun sendNotification() {
+        if (ContextCompat.checkSelfPermission(this@ItemDetailFragment.requireContext(), android.Manifest.permission.POST_NOTIFICATIONS ) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@ItemDetailFragment.requireActivity(),arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+        } else {
+            val builder = NotificationCompat.Builder(this.requireContext(), MainActivity.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notifications)
+                .setContentTitle(getString(R.string.expiring_soon))
+                .setContentText(getString(R.string.expiration_message, item.itemName, 5))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+            with(NotificationManagerCompat.from(this.requireContext())) {
+                // notificationId is a unique int for each notification that you must define
+                notify(notificationId++, builder.build())
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
