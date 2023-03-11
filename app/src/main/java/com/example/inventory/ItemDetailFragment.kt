@@ -17,6 +17,7 @@
 package com.example.inventory
 
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,6 +77,7 @@ class ItemDetailFragment : Fragment() {
             deleteItem.setOnClickListener { showConfirmationDialog() }
             sendNotification.setOnClickListener { sendNotification() }
             editItem.setOnClickListener { editItem() }
+            imageView.setImageURI(Uri.parse(item.imagePath))
         }
     }
 

@@ -50,8 +50,9 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemPrice: String,
         itemCount: String,
         itemSum: String,
+        imagePath: String,
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount, itemSum)
+        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount, itemSum, imagePath)
         updateItem(updatedItem)
     }
 
@@ -79,8 +80,14 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Inserts the new Item into database.
      */
-    fun addNewItem(itemName: String, itemPrice: String, itemCount: String, itemSum: String) {
-        val newItem = getNewItemEntry(itemName, itemPrice, itemCount, itemSum)
+    fun addNewItem(
+        itemName: String,
+        itemPrice: String,
+        itemCount: String,
+        itemSum: String,
+        imagePath: String,
+    ) {
+        val newItem = getNewItemEntry(itemName, itemPrice, itemCount, itemSum, imagePath)
         insertItem(newItem)
     }
 
@@ -123,12 +130,19 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Returns an instance of the [Item] entity class with the item info entered by the user.
      * This will be used to add a new entry to the Inventory database.
      */
-    private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String, itemSum: String): Item {
+    private fun getNewItemEntry(
+        itemName: String,
+        itemPrice: String,
+        itemCount: String,
+        itemSum: String,
+        imagePath: String,
+    ): Item {
         return Item(
             itemName = itemName,
             itemPrice = itemPrice,
             quantityInStock = itemCount,
-            itemSum = itemSum
+            itemSum = itemSum,
+            imagePath = imagePath
 //            itemPrice = itemPrice.toDouble(),
 //            quantityInStock = itemCount.toInt(),
 //            itemSum = itemSum.toInt()
@@ -145,13 +159,15 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         itemPrice: String,
         itemCount: String,
         itemSum: String,
+        imagePath: String
     ): Item {
         return Item(
             id = itemId,
             itemName = itemName,
             itemPrice = itemPrice,
             quantityInStock = itemCount,
-            itemSum = itemSum
+            itemSum = itemSum,
+            imagePath = imagePath
 //            itemPrice = itemPrice.toDouble(),
 //            quantityInStock = itemCount.toInt(),
 //            itemSum = itemSum.toInt()
