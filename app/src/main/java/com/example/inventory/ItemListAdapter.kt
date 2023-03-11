@@ -55,10 +55,6 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
         fun bind(item: Item) {
             binding.itemName.text = item.itemName
             binding.itemPrice.text = item.itemPrice
-//            binding.itemPrice.text = item.getFormattedPrice()
-            binding.itemQuantity.text = item.quantityInStock.toString()
-            binding.itemSum.text = item.itemSum.toString()
-
         }
     }
 
