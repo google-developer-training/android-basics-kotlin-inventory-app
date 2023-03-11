@@ -14,62 +14,46 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true" >
 
-    <TextView
-        android:id="@+id/item_name"
-        style="@style/Widget.Inventory.ListItemTextView"
-        android:layout_width="wrap_content"
-        android:fontFamily="sans-serif"
-        app:layout_constraintEnd_toStartOf="@+id/item_price"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Apple" />
 
-    <TextView
-        android:id="@+id/item_price"
-        style="@style/Widget.Inventory.ListItemTextView"
-        android:layout_width="100dp"
-        android:layout_below="@+id/item_name"
-        android:layout_marginStart="@dimen/margin_between_elements"
-        android:fontFamily="sans-serif-medium"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/item_quantity"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_name"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="2000-12-10" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants">
 
-    <TextView
-        android:id="@+id/item_quantity"
-        style="@style/Widget.Inventory.ListItemTextView"
-        android:layout_width="100dp"
-        android:layout_marginStart="@dimen/margin_between_elements"
-        android:fontFamily="sans-serif-medium"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/item_sum"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_price"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Fruit" />
 
-    <TextView
-        android:id="@+id/item_sum"
-        style="@style/Widget.Inventory.ListItemTextView"
-        android:layout_width="80dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/margin_between_elements"
-        android:fontFamily="sans-serif-medium"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Jack" />
+        <TextView
+            android:id="@+id/item_name"
+            style="@style/Widget.Inventory.ListItemTextView"
+            android:layout_width="255dp"
+            android:layout_marginStart="@dimen/margin_between_elements"
+            android:fontFamily="sans-serif"
+            app:layout_constraintEnd_toStartOf="@+id/item_price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Apple" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/item_price"
+            style="@style/Widget.Inventory.ListItemTextView"
+            android:layout_width="100dp"
+            android:layout_below="@+id/item_name"
+            android:layout_marginEnd="@dimen/margin_between_elements"
+            android:fontFamily="sans-serif-medium"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2000-12-10" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
