@@ -16,6 +16,7 @@
 package com.example.inventory
 
 import android.app.Activity.RESULT_OK
+import android.app.DatePickerDialog
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.net.Uri
@@ -33,6 +34,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentAddItemBinding
+import java.util.*
 
 /**
  * Fragment to add or update an item in the Inventory database.
@@ -132,6 +134,35 @@ class AddItemFragment : Fragment() {
         }
     }
 
+    /**
+     * Calls the Date Picker pop up for setting expiry date.
+     */
+    private fun callDatePicker() {
+        val expiryDate = binding.expiryDate
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                var month = (monthOfYear+1).toString()
+                var day = dayOfMonth.toString()
+                if (monthOfYear < 10) {
+                    month = "0$month"
+                }
+                if (dayOfMonth < 10) {
+                    day = "0$day"
+                }
+                val selectedDate = "$year-${month}-$day"
+                expiryDate.setText(selectedDate)
+            }
+
+        val datePickerDialog =
+            DatePickerDialog(requireContext(), dateSetListener, year, month, day)
+        datePickerDialog.show()
+    }
+
     // File upload: Stores the image the user selects from their gallery into the 'imagePath' variable
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -151,6 +182,12 @@ class AddItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val expiryDate = binding.expiryDate
+        expiryDate.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                callDatePicker()
+            }
+        }
         val id = navigationArgs.itemId
         // Protocol for editing an existing item
         if (id > 0) {
