@@ -1,6 +1,9 @@
 Inventory - Solution Code
 ==================================
 
+Solution code for Android Basics in Kotlin.
+Codelab: Android Jetpack - Room.
+
 Introduction
 ------------
 
