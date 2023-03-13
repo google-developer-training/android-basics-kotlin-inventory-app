@@ -26,18 +26,12 @@ import androidx.room.PrimaryKey
 data class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    @ColumnInfo(name = "itemName")
-    val itemName: String,
-    @ColumnInfo(name = "price")
-    val itemPrice: String,
     @ColumnInfo(name = "quantity")
-    val quantityInStock: String,
-    @ColumnInfo(name = "sum")
-    val itemSum: String,
+    val quantity: String,
     @ColumnInfo(name = "name", defaultValue = "Apple")
     val name: String = "Apple",
     @ColumnInfo(name = "expiryDate", defaultValue = "1680291840000" /* default = March 31 2023*/)
-    val expiryDate: Long = 1680291840000,
+    val expiryDate: String = "expiry string",
     @ColumnInfo(name = "label", defaultValue = "")
     val label: String = "",
     @ColumnInfo(name = "image", defaultValue = "")

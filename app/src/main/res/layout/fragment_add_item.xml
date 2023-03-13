@@ -25,7 +25,7 @@
         android:layout_margin="@dimen/margin">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/item_name_label"
+            android:id="@+id/name_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item_name"
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textAutoComplete|textCapWords"
@@ -44,17 +44,17 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/item_price_label"
+            android:id="@+id/expiry_date_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:hint="Expiry Date (YYYY-MM-DD)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_name_label">
+            app:layout_constraintTop_toBottomOf="@+id/name_label">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item_price"
+                android:id="@+id/expiry_date"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
@@ -62,17 +62,17 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/item_count_label"
+            android:id="@+id/label_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:hint="Enter a label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_price_label">
+            app:layout_constraintTop_toBottomOf="@+id/expiry_date_label">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item_count"
+                android:id="@+id/label"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
@@ -80,18 +80,18 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/item_sum_label"
+            android:id="@+id/quantity_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
-            android:hint="Owner"
+            android:hint="Quantity"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_count_label">
+            app:layout_constraintTop_toBottomOf="@+id/label_label">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item_sum"
+                android:id="@+id/quantity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
@@ -108,7 +108,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_sum_label"
+            app:layout_constraintTop_toBottomOf="@+id/quantity_label"
             app:layout_constraintVertical_bias="0.0"
             android:visibility="gone"
             app:srcCompat="@drawable/baseline_image_search_24" />
