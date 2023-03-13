@@ -75,10 +75,10 @@ class AddItemFragment : Fragment() {
      */
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
-            binding.itemName.text.toString(),
-            binding.itemPrice.text.toString(),
-            binding.itemCount.text.toString(),
-            binding.itemSum.text.toString(),
+            binding.name.text.toString(),
+            binding.expiryDate.text.toString(),
+            binding.label.text.toString(),
+            binding.quantity.text.toString(),
         )
     }
 
@@ -86,13 +86,11 @@ class AddItemFragment : Fragment() {
      * Binds views with the passed in [item] information.
      */
     private fun bind(item: Item) {
-        val price = item.itemPrice
-//        val price = "%.2f".format(item.itemPrice)
         binding.apply {
-            itemName.setText(item.itemName, TextView.BufferType.SPANNABLE)
-            itemPrice.setText(price, TextView.BufferType.SPANNABLE)
-            itemCount.setText(item.quantityInStock.toString(), TextView.BufferType.SPANNABLE)
-            itemSum.setText(item.itemSum.toString(), TextView.BufferType.SPANNABLE)
+            name.setText(item.name, TextView.BufferType.SPANNABLE)
+            expiryDate.setText(item.expiryDate, TextView.BufferType.SPANNABLE)
+            label.setText(item.label.toString(), TextView.BufferType.SPANNABLE)
+            quantity.setText(item.quantity.toString(), TextView.BufferType.SPANNABLE)
             saveAction.setOnClickListener { updateItem() }
             binding.imageView.setImageURI(Uri.parse(item.imagePath))
         }
@@ -105,10 +103,10 @@ class AddItemFragment : Fragment() {
     private fun addNewItem() {
         if (isEntryValid()) {
             viewModel.addNewItem(
-                binding.itemName.text.toString(),
-                binding.itemPrice.text.toString(),
-                binding.itemCount.text.toString(),
-                binding.itemSum.text.toString(),
+                binding.name.text.toString(),
+                binding.expiryDate.text.toString(),
+                binding.label.text.toString(),
+                binding.quantity.text.toString(),
                 imagePath.toString()
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
@@ -123,10 +121,10 @@ class AddItemFragment : Fragment() {
         if (isEntryValid()) {
             viewModel.updateItem(
                 this.navigationArgs.itemId,
-                this.binding.itemName.text.toString(),
-                this.binding.itemPrice.text.toString(),
-                this.binding.itemCount.text.toString(),
-                this.binding.itemSum.text.toString(),
+                this.binding.name.text.toString(),
+                this.binding.expiryDate.text.toString(),
+                this.binding.label.text.toString(),
+                this.binding.quantity.text.toString(),
                 this.imagePath.toString(),
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()

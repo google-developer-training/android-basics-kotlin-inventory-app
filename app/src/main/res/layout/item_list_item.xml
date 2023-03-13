@@ -31,26 +31,26 @@
 
 
         <TextView
-            android:id="@+id/item_name"
+            android:id="@+id/name"
             style="@style/Widget.Inventory.ListItemTextView"
             android:layout_width="255dp"
             android:layout_marginStart="@dimen/margin_between_elements"
             android:fontFamily="sans-serif"
-            app:layout_constraintEnd_toStartOf="@+id/item_price"
+            app:layout_constraintEnd_toStartOf="@+id/expiry_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Apple" />
 
         <TextView
-            android:id="@+id/item_price"
+            android:id="@+id/expiry_date"
             style="@style/Widget.Inventory.ListItemTextView"
             android:layout_width="100dp"
-            android:layout_below="@+id/item_name"
+            android:layout_below="@+id/name"
             android:layout_marginEnd="@dimen/margin_between_elements"
             android:fontFamily="sans-serif-medium"
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/item_name"
+            app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2000-12-10" />
 

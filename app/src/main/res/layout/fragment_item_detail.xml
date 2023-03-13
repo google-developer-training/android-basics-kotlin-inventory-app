@@ -23,84 +23,84 @@
     tools:context=".ItemDetailFragment">
 
     <TextView
-        android:id="@+id/item_name_label"
+        android:id="@+id/name_label"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="wrap_content"
         android:text="Ingredient Name:"
-        app:layout_constraintBaseline_toBaselineOf="@+id/item_name"
-        app:layout_constraintEnd_toStartOf="@+id/item_name"
+        app:layout_constraintBaseline_toBaselineOf="@+id/name"
+        app:layout_constraintEnd_toStartOf="@+id/name"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/name"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/item_name_label"
+        app:layout_constraintStart_toEndOf="@+id/name_label"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="@dimen/margin_between_elements"
         tools:text="Apple" />
 
     <TextView
-        android:id="@+id/item_price_label"
+        android:id="@+id/expiry_date_label"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="wrap_content"
         android:text="Expiry Date:"
-        app:layout_constraintBaseline_toBaselineOf="@+id/item_price"
-        app:layout_constraintEnd_toStartOf="@+id/item_price"
+        app:layout_constraintBaseline_toBaselineOf="@+id/expiry_date"
+        app:layout_constraintEnd_toStartOf="@+id/expiry_date"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/item_price"
+        android:id="@+id/expiry_date"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="wrap_content"
         android:layout_marginTop="@dimen/margin"
         android:layout_marginStart="@dimen/margin_between_elements"
-        app:layout_constraintStart_toEndOf="@+id/item_price_label"
-        app:layout_constraintTop_toBottomOf="@+id/item_name"
+        app:layout_constraintStart_toEndOf="@+id/expiry_date_label"
+        app:layout_constraintTop_toBottomOf="@+id/name"
         tools:text="2000-12-11" />
 
     <TextView
-        android:id="@+id/item_count_label"
+        android:id="@+id/label_label"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="wrap_content"
         android:text="Labels:"
-        app:layout_constraintBaseline_toBaselineOf="@+id/item_count"
-        app:layout_constraintEnd_toStartOf="@+id/item_count"
+        app:layout_constraintBaseline_toBaselineOf="@+id/label"
+        app:layout_constraintEnd_toStartOf="@+id/label"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/item_count"
+        android:id="@+id/label"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="0dp"
         android:layout_marginStart="@dimen/margin_between_elements"
         android:layout_marginTop="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_count_label"
-        app:layout_constraintTop_toBottomOf="@+id/item_price"
+        app:layout_constraintStart_toEndOf="@+id/label_label"
+        app:layout_constraintTop_toBottomOf="@+id/expiry_date"
         tools:text="Fruit" />
 
     <TextView
-        android:id="@+id/item_sum_label"
+        android:id="@+id/quantity_label"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="wrap_content"
-        android:text="Owner:"
-        app:layout_constraintBaseline_toBaselineOf="@+id/item_sum"
-        app:layout_constraintEnd_toStartOf="@+id/item_sum"
+        android:text="Quantity:"
+        app:layout_constraintBaseline_toBaselineOf="@+id/quantity"
+        app:layout_constraintEnd_toStartOf="@+id/quantity"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/item_sum"
+        android:id="@+id/quantity"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="0dp"
         android:layout_marginStart="@dimen/margin_between_elements"
         android:layout_marginTop="@dimen/margin"
-        app:layout_constraintStart_toEndOf="@+id/item_sum_label"
-        app:layout_constraintTop_toBottomOf="@+id/item_count"
+        app:layout_constraintStart_toEndOf="@+id/quantity_label"
+        app:layout_constraintTop_toBottomOf="@+id/label"
         tools:text="Jack" />
 
     <ImageView
@@ -112,7 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_count"
+        app:layout_constraintTop_toBottomOf="@+id/label"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/baseline_image_search_24" />
 
