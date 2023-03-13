@@ -27,7 +27,7 @@ data class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "quantity")
-    val quantity: String,
+    val quantity: Int,
     @ColumnInfo(name = "name", defaultValue = "Apple")
     val name: String = "Apple",
     @ColumnInfo(name = "expiryDate", defaultValue = "1680291840000" /* default = March 31 2023*/)
