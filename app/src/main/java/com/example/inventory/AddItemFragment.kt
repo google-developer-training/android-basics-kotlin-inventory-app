@@ -134,6 +134,7 @@ class AddItemFragment : Fragment() {
         }
     }
 
+    // File upload: Stores the image the user selects from their gallery into the 'imagePath' variable
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
