@@ -174,8 +174,8 @@ class AddItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val itemPriceEditText = binding.expiryDate
-        itemPriceEditText.setOnFocusChangeListener { view, hasFocus ->
+        val expiryDate = binding.expiryDate
+        expiryDate.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 callDatePicker()
             }
