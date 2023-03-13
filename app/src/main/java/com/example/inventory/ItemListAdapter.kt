@@ -53,12 +53,8 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
-            binding.itemName.text = item.itemName
-            binding.itemPrice.text = item.itemPrice
-//            binding.itemPrice.text = item.getFormattedPrice()
-            binding.itemQuantity.text = item.quantityInStock.toString()
-            binding.itemSum.text = item.itemSum.toString()
-
+            binding.name.text = item.name
+            binding.expiryDate.text = item.expiryDate
         }
     }
 
@@ -69,7 +65,7 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
             }
 
             override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-                return oldItem.itemName == newItem.itemName
+                return oldItem.name == newItem.name
             }
         }
     }

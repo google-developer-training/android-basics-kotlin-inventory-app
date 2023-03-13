@@ -17,6 +17,7 @@
 package com.example.inventory
 
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -66,16 +67,16 @@ class ItemDetailFragment : Fragment() {
      */
     private fun bind(item: Item) {
         binding.apply {
-            itemName.text = item.itemName
-            itemPrice.text = item.itemPrice
-//            itemPrice.text = item.getFormattedPrice()
-            itemCount.text = item.quantityInStock.toString()
-            itemSum.text = item.itemSum.toString()
+            name.text = item.name
+            expiryDate.text = item.expiryDate
+            label.text = item.label.toString()
+            quantity.text = item.quantity.toString()
 //            sellItem.isEnabled = viewModel.isStockAvailable(item)
 //            sellItem.setOnClickListener { viewModel.sellItem(item) }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             sendNotification.setOnClickListener { sendNotification() }
             editItem.setOnClickListener { editItem() }
+            imageView.setImageURI(Uri.parse(item.imagePath))
         }
     }
 
@@ -123,7 +124,7 @@ class ItemDetailFragment : Fragment() {
             val builder = NotificationCompat.Builder(this.requireContext(), MainActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications)
                 .setContentTitle(getString(R.string.expiring_soon))
-                .setContentText(getString(R.string.expiration_message, item.itemName, 5))
+                .setContentText(getString(R.string.expiration_message, item.name, 5))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
             with(NotificationManagerCompat.from(this.requireContext())) {
