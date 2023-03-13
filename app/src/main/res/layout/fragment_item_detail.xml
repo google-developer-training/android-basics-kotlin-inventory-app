@@ -117,12 +117,12 @@
         app:srcCompat="@drawable/baseline_image_search_24" />
 
     <Button
-        android:id="@+id/sell_item"
+        android:id="@+id/decrement_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin"
         android:text="@string/decrement_count"
-        app:layout_constraintBottom_toTopOf="@+id/delete_item"
+        app:layout_constraintBottom_toTopOf="@+id/increment_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -136,7 +136,7 @@
         app:layout_constraintBottom_toTopOf="@+id/delete_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sell_item" />
+        app:layout_constraintTop_toBottomOf="@+id/decrement_item" />
 
     <Button
         android:id="@+id/delete_item"

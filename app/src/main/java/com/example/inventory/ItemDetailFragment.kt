@@ -71,9 +71,9 @@ class ItemDetailFragment : Fragment() {
             expiryDate.text = item.expiryDate
             label.text = item.label.toString()
             quantity.text = item.quantity.toString()
-            sellItem.isEnabled = viewModel.isStockAvailable(item)
+            decrementItem.isEnabled = viewModel.isStockAvailable(item)
             incrementItem.isEnabled = viewModel.isStockAvailable(item)
-            sellItem.setOnClickListener { viewModel.sellItem(item) }
+            decrementItem.setOnClickListener { viewModel.sellItem(item) }
             incrementItem.setOnClickListener{ viewModel.incrementItem(item) }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             sendNotification.setOnClickListener { sendNotification() }
