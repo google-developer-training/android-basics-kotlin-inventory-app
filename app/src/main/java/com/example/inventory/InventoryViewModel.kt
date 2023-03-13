@@ -37,9 +37,9 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Returns true if stock is available to sell, false otherwise.
      */
-//    fun isStockAvailable(item: Item): Boolean {
-//        return (item.quantityInStock > 0)
-//    }
+    fun isStockAvailable(item: Item): Boolean {
+        return (item.quantity > 0)
+    }
 
     /**
      * Updates an existing Item in the database.
@@ -69,13 +69,21 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Decreases the stock by one unit and updates the database.
      */
-//    fun sellItem(item: Item) {
-//        if (item.quantityInStock > 0) {
-//            // Decrease the quantity by 1
-//            val newItem = item.copy(quantityInStock = item.quantityInStock - 1)
-//            updateItem(newItem)
-//        }
-//    }
+    fun sellItem(item: Item) {
+        if (item.quantity > 0) {
+            // Decrease the quantity by 1
+            val newItem = item.copy(quantity = item.quantity - 1)
+            updateItem(newItem)
+        }
+    }
+
+    fun incrementItem(item: Item) {
+        if (item.quantity > 0) {
+            // Decrease the quantity by 1
+            val newItem = item.copy(quantity = item.quantity + 1)
+            updateItem(newItem)
+        }
+    }
 
     /**
      * Inserts the new Item into database.
@@ -141,7 +149,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             name = name,
             expiryDate = expiryDate,
             label = label,
-            quantity = quantity,
+            quantity = quantity.toInt(),
             imagePath = imagePath
         )
     }
@@ -163,7 +171,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             name = name,
             expiryDate = expiryDate,
             label = label,
-            quantity = quantity,
+            quantity = quantity.toInt(),
             imagePath = imagePath
         )
     }

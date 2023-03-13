@@ -15,7 +15,8 @@
   -->
 <resources>
     <string name="app_name">Food Expiry Tracker</string>
-    <string name="sell">Sell</string>
+    <string name="decrement_count">Decrement</string>
+    <string name="increment_count">Increment</string>
     <string name="quantity">Quantity in Stock:</string>
     <string name="quantity_req">Quantity in Stock <font color='#FF0000'>*</font></string>
     <string name="item_name_req">Ingredient Name <font color='#FF0000'>*</font></string>
