@@ -146,7 +146,15 @@ class AddItemFragment : Fragment() {
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                val selectedDate = "$dayOfMonth/${monthOfYear + 1}/$year"
+                var month = (monthOfYear+1).toString()
+                var day = dayOfMonth.toString()
+                if (monthOfYear < 10) {
+                    month = "0$month"
+                }
+                if (dayOfMonth < 10) {
+                    day = "0$day"
+                }
+                val selectedDate = "$year-${month}-$day"
                 expiryDate.setText(selectedDate)
             }
 
