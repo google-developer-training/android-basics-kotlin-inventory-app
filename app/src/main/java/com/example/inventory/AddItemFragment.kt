@@ -160,6 +160,7 @@ class AddItemFragment : Fragment() {
 
         val datePickerDialog =
             DatePickerDialog(requireContext(), dateSetListener, year, month, day)
+        datePickerDialog.datePicker.minDate = calendar.timeInMillis
         datePickerDialog.show()
     }
 
