@@ -37,7 +37,7 @@
         style="@style/Widget.Inventory.Header"
         android:layout_below="@+id/name"
         android:layout_marginStart="@dimen/margin_between_elements"
-        android:text="@string/expiry_date"
+        android:text="@string/expiry_in"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"

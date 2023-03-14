@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inventory.data.Item
 //import com.example.inventory.data.getFormattedPrice
 import com.example.inventory.databinding.ItemListItemBinding
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
 
 /**
  * [ListAdapter] implementation for the recyclerview.
@@ -54,9 +57,21 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
 
         fun bind(item: Item) {
             binding.name.text = item.name
-            binding.expiryDate.text = item.expiryDate
+            val expiredDays = getExpiredDays(item.expiryDate).toString()
+            val formatExpiredDays = "$expiredDays days"
+            binding.expiryDate.text = formatExpiredDays
+        }
+        private fun getExpiredDays(expiryDate: String): Long {
+            val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            val parsedExpiryDate = formatter.parse(expiryDate)
+            val parsedCurrentDate = formatter.parse(LocalDateTime.now().toString())
+            val timeDiff = parsedExpiryDate.time - parsedCurrentDate.time
+            return timeDiff / (1000 * 60 * 60 * 24)
         }
     }
+
+
+
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Item>() {
