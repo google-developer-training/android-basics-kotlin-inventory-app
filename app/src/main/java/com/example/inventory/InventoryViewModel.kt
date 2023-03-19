@@ -149,7 +149,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             name = name,
             expiryDate = expiryDate,
             label = label,
-            quantity = quantity.toInt(),
+            quantity = quantity.toDouble(),
             imagePath = imagePath
         )
     }
@@ -171,7 +171,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             name = name,
             expiryDate = expiryDate,
             label = label,
-            quantity = quantity.toInt(),
+            quantity = quantity.toDouble(),
             imagePath = imagePath
         )
     }
