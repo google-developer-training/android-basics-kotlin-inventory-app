@@ -22,11 +22,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -164,6 +167,36 @@ class AddItemFragment : Fragment() {
         datePickerDialog.show()
     }
 
+    private val MAX_DECIMAL_PLACES = 2 // Set the maximum number of decimal places here
+
+    private fun setUpQuantityText() {
+        val editQuantity = binding.quantity
+
+        editQuantity.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                // Nothing to do here
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Nothing to do here
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val decimalIndex = s?.indexOf(".") ?: -1
+
+                if (s != null) {
+                    if (decimalIndex != -1 && s.length - decimalIndex - 1 > MAX_DECIMAL_PLACES) {
+                        // Too many decimal places, remove the extra ones
+                        val truncatedString = s.substring(0, decimalIndex + MAX_DECIMAL_PLACES + 1)
+                        editQuantity.setText(truncatedString)
+                        editQuantity.setSelection(truncatedString.length)
+                    }
+                }
+            }
+        })
+    }
+
+
     // File upload: Stores the image the user selects from their gallery into the 'imagePath' variable
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -184,9 +217,15 @@ class AddItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val expiryDate = binding.expiryDate
-        expiryDate.setOnFocusChangeListener { view, hasFocus ->
+        expiryDate.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 callDatePicker()
+            }
+        }
+        val quantity = binding.quantity
+        quantity.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                setUpQuantityText()
             }
         }
         val id = navigationArgs.itemId
