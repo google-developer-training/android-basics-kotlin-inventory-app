@@ -76,12 +76,30 @@ class AddItemFragment : Fragment() {
      * Returns true if the EditTexts are not empty
      */
     private fun isEntryValid(): Boolean {
-        return viewModel.isEntryValid(
-            binding.name.text.toString(),
-            binding.expiryDate.text.toString(),
-            binding.label.text.toString(),
-            binding.quantity.text.toString(),
-        )
+        val nameValid = (viewModel.isEntryValid(
+            binding.name.text.toString()
+        ))
+        val expiryDateValid = (viewModel.isEntryValid(
+            binding.expiryDate.text.toString()
+        ))
+        val quantityValid = (viewModel.isEntryValid(
+            binding.quantity.text.toString()
+        ))
+        var formValid = true
+        if (!nameValid || !expiryDateValid || !quantityValid) {
+            formValid = false
+            if (!nameValid) {
+                binding.name.error = "ingredient name cannot be empty"
+            }
+            if (!expiryDateValid) {
+                binding.expiryDate.error = "expiry date cannot be empty"
+            }
+            if (!quantityValid) {
+                binding.quantity.error = "quantity cannot be empty"
+            }
+
+        }
+        return formValid
     }
 
     /**

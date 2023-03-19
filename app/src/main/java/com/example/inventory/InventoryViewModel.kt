@@ -127,8 +127,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Returns true if the EditTexts are not empty
      */
-    fun isEntryValid(name: String, expiryDate: String, label: String, quantity: String): Boolean {
-        if (name.isBlank() || expiryDate.isBlank() || label.isBlank() || quantity.isBlank()) {
+    fun isEntryValid(field: String): Boolean {
+        if (field.isBlank()) {
             return false
         }
         return true
