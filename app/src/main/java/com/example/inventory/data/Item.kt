@@ -18,7 +18,6 @@ package com.example.inventory.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
 
 /**
  * Entity data class represents a single row in the database.
@@ -36,7 +35,7 @@ data class Item(
     @ColumnInfo(name = "label", defaultValue = "")
     val label: String = "",
     @ColumnInfo(name = "image", defaultValue = "")
-    val imageByte: ByteArray,
+    val imageByte: ByteArray?,
     @ColumnInfo(name = "discarded", defaultValue = false.toString())
     val discarded: Boolean = false,
     @ColumnInfo(name = "addedOn", defaultValue = "1678394640000" /* default = March 1 2023*/)

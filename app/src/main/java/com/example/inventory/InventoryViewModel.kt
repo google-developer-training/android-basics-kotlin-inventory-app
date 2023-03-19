@@ -150,7 +150,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             expiryDate = expiryDate,
             label = label,
             quantity = quantity.toDouble(),
-            imageByte = imageByte!!
+            imageByte = imageByte
         )
     }
 
@@ -172,7 +172,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             expiryDate = expiryDate,
             label = label,
             quantity = quantity.toDouble(),
-            imageByte = imageByte!!
+            imageByte = imageByte
         )
     }
 }
