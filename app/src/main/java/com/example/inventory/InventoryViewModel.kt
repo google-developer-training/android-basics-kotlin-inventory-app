@@ -50,9 +50,9 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         expiryDate: String,
         label: String,
         quantity: String,
-        imagePath: String,
+        imageByte: ByteArray?,
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, name, expiryDate, label, quantity, imagePath)
+        val updatedItem = getUpdatedItemEntry(itemId, name, expiryDate, label, quantity, imageByte)
         updateItem(updatedItem)
     }
 
@@ -93,9 +93,9 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         expiryDate: String,
         label: String,
         quantity: String,
-        imagePath: String,
+        imageByte: ByteArray?,
     ) {
-        val newItem = getNewItemEntry(name, expiryDate, label, quantity, imagePath)
+        val newItem = getNewItemEntry(name, expiryDate, label, quantity, imageByte)
         insertItem(newItem)
     }
 
@@ -143,14 +143,14 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         expiryDate: String,
         label: String,
         quantity: String,
-        imagePath: String,
+        imageByte: ByteArray?,
     ): Item {
         return Item(
             name = name,
             expiryDate = expiryDate,
             label = label,
             quantity = quantity.toDouble(),
-            imagePath = imagePath
+            imageByte = imageByte!!
         )
     }
 
@@ -164,7 +164,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         expiryDate: String,
         label: String,
         quantity: String,
-        imagePath: String
+        imageByte: ByteArray?
     ): Item {
         return Item(
             id = itemId,
@@ -172,7 +172,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             expiryDate = expiryDate,
             label = label,
             quantity = quantity.toDouble(),
-            imagePath = imagePath
+            imageByte = imageByte!!
         )
     }
 }
