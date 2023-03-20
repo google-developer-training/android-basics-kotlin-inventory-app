@@ -31,7 +31,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.data.Item
-//import com.example.inventory.data.getFormattedPrice
+import com.example.inventory.data.getDaysToExpiry
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -126,7 +126,7 @@ class ItemDetailFragment : Fragment() {
             val builder = NotificationCompat.Builder(this.requireContext(), MainActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications)
                 .setContentTitle(getString(R.string.expiring_soon))
-                .setContentText(getString(R.string.expiration_message, item.name, 5))
+                .setContentText(getString(R.string.expiration_message, item.name, item.getDaysToExpiry()))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
             with(NotificationManagerCompat.from(this.requireContext())) {

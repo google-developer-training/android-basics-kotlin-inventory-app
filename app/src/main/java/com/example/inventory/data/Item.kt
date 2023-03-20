@@ -18,7 +18,10 @@ package com.example.inventory.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  * Entity data class represents a single row in the database.
@@ -49,3 +52,16 @@ data class Item(
  */
 //fun Item.getFormattedPrice(): String =
 //    NumberFormat.getCurrencyInstance().format(itemPrice)
+
+/**
+ * Returns the remaining number of days until the ingredient expired.
+ */
+fun Item.getDaysToExpiry(): Long {
+    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    val parsedExpiryDate = formatter.parse(expiryDate)
+    val parsedCurrentDate = formatter.parse(LocalDateTime.now().toString())
+    val diffInMillies: Long = parsedExpiryDate.time - parsedCurrentDate.time
+    val diffInDays: Long = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS)
+
+    return diffInDays
+}
