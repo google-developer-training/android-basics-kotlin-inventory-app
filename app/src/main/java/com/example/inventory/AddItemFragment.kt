@@ -253,7 +253,7 @@ class AddItemFragment : Fragment() {
                 MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,imagePath!!)
             }
             binding.imageView.setImageBitmap(imageBitmap)
-            imageBitmap?.compress(Bitmap.CompressFormat.PNG, 100, bos)
+            imageBitmap?.compress(Bitmap.CompressFormat.JPEG, 33, bos)
             imageByte = bos?.toByteArray();
             binding.imageView.visibility = View.VISIBLE
         }
