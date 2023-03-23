@@ -39,14 +39,27 @@ data class Item(
     @ColumnInfo(name = "label", defaultValue = "")
     val label: String = "",
     @ColumnInfo(name = "image", defaultValue = "")
-    val imagePath: String = "",
+    val imageByte: ByteArray?,
     @ColumnInfo(name = "discarded", defaultValue = false.toString())
     val discarded: Boolean = false,
     @ColumnInfo(name = "addedOn", defaultValue = "1678394640000" /* default = March 1 2023*/)
     val addedOn: Long = 1678394640000,
     @ColumnInfo(name = "updatedOn", defaultValue = "1678394640000" /* default = March 1 2023*/)
     val updatedOn: Long = 1678394640000,
-)
+) {
+    // Processing for ImagePath property (as it's a ByteArray)
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as Item
+        if (!imageByte.contentEquals(other.imageByte)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return imageByte.contentHashCode()
+    }
+}
 /**
  * Returns the passed in price in currency format.
  */

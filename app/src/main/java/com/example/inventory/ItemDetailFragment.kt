@@ -17,8 +17,10 @@
 package com.example.inventory
 
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +68,14 @@ class ItemDetailFragment : Fragment() {
      * Binds views with the passed in item data.
      */
     private fun bind(item: Item) {
+
+        // Only try to load the image if the user added one
+        var loadImageByte = if (item.imageByte == null) {
+            null
+        } else {
+            BitmapFactory.decodeByteArray(item.imageByte, 0, item.imageByte!!.size)
+        }
+
         binding.apply {
             name.text = item.name
             expiryDate.text = item.expiryDate
@@ -74,12 +84,19 @@ class ItemDetailFragment : Fragment() {
             decrementItem.isEnabled = viewModel.isStockAvailable(item)
             incrementItem.isEnabled = viewModel.isStockAvailable(item)
             decrementItem.setOnClickListener { viewModel.sellItem(item) }
-            incrementItem.setOnClickListener{ viewModel.incrementItem(item) }
+            incrementItem.setOnClickListener { viewModel.incrementItem(item) }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             sendNotification.setOnClickListener { sendNotification() }
             editItem.setOnClickListener { editItem() }
-            imageView.setImageURI(Uri.parse(item.imagePath))
+            binding.imageView.setImageBitmap(loadImageByte)
         }
+
+        if (item.imageByte == null) {
+            binding.imageView.visibility = View.GONE
+        } else {
+            binding.imageView.visibility = View.VISIBLE
+        }
+
     }
 
     /**
@@ -120,8 +137,16 @@ class ItemDetailFragment : Fragment() {
      * Sends a push notification to inform the user of the expiry date
      */
     private fun sendNotification() {
-        if (ContextCompat.checkSelfPermission(this@ItemDetailFragment.requireContext(), android.Manifest.permission.POST_NOTIFICATIONS ) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this@ItemDetailFragment.requireActivity(),arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+        if (ContextCompat.checkSelfPermission(
+                this@ItemDetailFragment.requireContext(),
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this@ItemDetailFragment.requireActivity(),
+                arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                1
+            )
         } else {
             val builder = NotificationCompat.Builder(this.requireContext(), MainActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications)

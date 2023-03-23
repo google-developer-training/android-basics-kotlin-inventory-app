@@ -19,17 +19,19 @@ import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -37,6 +39,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentAddItemBinding
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 /**
@@ -65,6 +68,9 @@ class AddItemFragment : Fragment() {
     // For file upload
     private val pickImage = 100
     private var imagePath: Uri? = null
+    private var imageBitmap: Bitmap? = null
+    private var imageByte: ByteArray? = null
+    private var bos: ByteArrayOutputStream? = ByteArrayOutputStream();
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -109,15 +115,34 @@ class AddItemFragment : Fragment() {
      * Binds views with the passed in [item] information.
      */
     private fun bind(item: Item) {
+
+        // Use the uploaded user image if this is the add screen, otherwise take from database
+        var loadImageByte = if (navigationArgs.itemId > 0) {
+            // Check if the user added an image with this item
+            if (item.imageByte == null) {
+                null
+            } else {
+                BitmapFactory.decodeByteArray(item.imageByte, 0, item.imageByte!!.size)
+            }
+        } else {
+            BitmapFactory.decodeByteArray(imageByte, 0, imageByte!!.size)
+        }
+
         binding.apply {
             name.setText(item.name, TextView.BufferType.SPANNABLE)
             expiryDate.setText(item.expiryDate, TextView.BufferType.SPANNABLE)
             label.setText(item.label.toString(), TextView.BufferType.SPANNABLE)
             quantity.setText(item.quantity.toString(), TextView.BufferType.SPANNABLE)
+            binding.imageView.setImageBitmap(loadImageByte)
             saveAction.setOnClickListener { updateItem() }
-            binding.imageView.setImageURI(Uri.parse(item.imagePath))
         }
-        binding.imageView.visibility = View.VISIBLE
+
+        if (item.imageByte == null) {
+            binding.imageView.visibility = View.GONE
+        } else {
+            binding.imageView.visibility = View.VISIBLE
+        }
+
     }
 
     /**
@@ -130,7 +155,7 @@ class AddItemFragment : Fragment() {
                 binding.expiryDate.text.toString(),
                 binding.label.text.toString(),
                 binding.quantity.text.toString(),
-                imagePath.toString()
+                imageByte
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
             findNavController().navigate(action)
@@ -148,7 +173,7 @@ class AddItemFragment : Fragment() {
                 this.binding.expiryDate.text.toString(),
                 this.binding.label.text.toString(),
                 this.binding.quantity.text.toString(),
-                this.imagePath.toString(),
+                this.imageByte,
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
             findNavController().navigate(action)
@@ -220,7 +245,16 @@ class AddItemFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             imagePath = data?.data
-            binding.imageView.setImageURI(imagePath)
+//            binding.imageView.setImageURI(imagePath)
+            imageBitmap = if (Build.VERSION.SDK_INT >= 28) {
+                val source = ImageDecoder.createSource(requireActivity().contentResolver,imagePath!!)
+                ImageDecoder.decodeBitmap(source)
+            } else {
+                MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,imagePath!!)
+            }
+            binding.imageView.setImageBitmap(imageBitmap)
+            imageBitmap?.compress(Bitmap.CompressFormat.JPEG, 33, bos)
+            imageByte = bos?.toByteArray();
             binding.imageView.visibility = View.VISIBLE
         }
     }
@@ -247,6 +281,7 @@ class AddItemFragment : Fragment() {
             }
         }
         val id = navigationArgs.itemId
+
         // Protocol for editing an existing item
         if (id > 0) {
             viewModel.retrieveItem(id).observe(this.viewLifecycleOwner) { selectedItem ->
@@ -260,6 +295,8 @@ class AddItemFragment : Fragment() {
                 addNewItem()
             }
         }
+
+        // Opens the phone's gallery
         binding.uploadPhoto.setOnClickListener{
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)

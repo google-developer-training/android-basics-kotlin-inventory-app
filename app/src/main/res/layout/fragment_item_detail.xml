@@ -107,12 +107,12 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/delete_item"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/decrement_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label"
+        app:layout_constraintTop_toBottomOf="@+id/quantity"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/baseline_image_search_24" />
 
