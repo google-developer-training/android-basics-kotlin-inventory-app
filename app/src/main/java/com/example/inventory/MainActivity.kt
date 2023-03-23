@@ -18,17 +18,25 @@ package com.example.inventory
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import com.example.inventory.workers.NotificationWorker
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     companion object {
         const val CHANNEL_ID: String = "Expirations"
+        const val WORK_ID: String = "NotificationWorker"
     }
 
     private lateinit var navController: NavController
@@ -43,8 +51,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         // Set up the action bar for use with the NavController
         setupActionBarWithNavController(this, navController)
 
-        // Set up notifications channel
-        createNotificationChannel()
+        // Set up notifications channel and service
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS ) == PackageManager.PERMISSION_GRANTED) {
+            setupNotifications()
+        }
     }
 
     /**
@@ -55,9 +65,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     /**
-     * Setup notification channel
+     * Setup notifications
      */
-    private fun createNotificationChannel() {
+    private fun setupNotifications() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -71,6 +81,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+
+        // Setup notification service if not already running
+        val notificationsRequest = PeriodicWorkRequestBuilder<NotificationWorker>(12, TimeUnit.HOURS).build()
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WORK_ID, ExistingPeriodicWorkPolicy.KEEP, notificationsRequest)
     }
 
 }
