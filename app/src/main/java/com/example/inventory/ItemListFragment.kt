@@ -16,6 +16,8 @@
 
 package com.example.inventory
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -71,6 +73,13 @@ class ItemListFragment : Fragment() {
                 getString(R.string.add_fragment_title)
             )
             this.findNavController().navigate(action)
+        }
+
+        binding.foodBankButton.setOnClickListener {
+            val gmmIntentUri = Uri.parse("geo:0,0?q=food donation")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
         }
     }
 }
