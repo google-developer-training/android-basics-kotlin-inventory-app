@@ -141,6 +141,7 @@ class AddItemFragment : Fragment() {
             binding.imageView.visibility = View.GONE
         } else {
             binding.imageView.visibility = View.VISIBLE
+            imageByte = item.imageByte
         }
 
     }
