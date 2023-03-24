@@ -44,4 +44,5 @@
     <string name="expiration_message">%1$s expires in %2$d days</string>
     <string name="ingredient">Ingredient</string>
     <string name="expiry_in">Expiry</string>
+    <string name="findFoodbanks">Find nearby foodbanks</string>
 </resources>
