@@ -78,3 +78,17 @@ fun Item.getDaysToExpiry(): Long {
 
     return diffInDays
 }
+
+/**
+ * Returns boolean indicating if item has been consumed or not.
+ */
+fun Item.isConsumed(): Boolean {
+    return quantity <= 0
+}
+
+/**
+ * Returns boolean indicating if item has expired or not.
+ */
+fun Item.hasExpired(): Boolean {
+    return getDaysToExpiry() < 0
+}
