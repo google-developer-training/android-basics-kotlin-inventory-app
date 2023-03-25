@@ -15,17 +15,18 @@
  */
 package com.example.inventory
 
+//import com.example.inventory.data.getFormattedPrice
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventory.data.Item
-//import com.example.inventory.data.getFormattedPrice
+import com.example.inventory.data.getDaysToExpiry
+import com.example.inventory.data.hasExpired
+import com.example.inventory.data.isConsumed
 import com.example.inventory.databinding.ItemListItemBinding
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.util.*
 
 /**
  * [ListAdapter] implementation for the recyclerview.
@@ -57,16 +58,17 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
 
         fun bind(item: Item) {
             binding.name.text = item.name
-            val expiredDays = getExpiredDays(item.expiryDate).toString()
+            val expiredDays = item.getDaysToExpiry().toString()
             val formatExpiredDays = "$expiredDays days"
             binding.expiryDate.text = formatExpiredDays
-        }
-        private fun getExpiredDays(expiryDate: String): Long {
-            val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-            val parsedExpiryDate = formatter.parse(expiryDate)
-            val parsedCurrentDate = formatter.parse(LocalDateTime.now().toString())
-            val timeDiff = parsedExpiryDate.time - parsedCurrentDate.time
-            return timeDiff / (1000 * 60 * 60 * 24)
+
+            if (item.hasExpired()) {
+                binding.card.setCardBackgroundColor(ContextCompat.getColor(binding.card.context, R.color.ingredient_expired))
+            }
+            if (item.isConsumed()) {
+                binding.name.setTextColor(ContextCompat.getColor(binding.card.context, R.color.ingredient_consumed))
+                binding.expiryDate.setTextColor(ContextCompat.getColor(binding.card.context, R.color.ingredient_consumed))
+            }
         }
     }
 
