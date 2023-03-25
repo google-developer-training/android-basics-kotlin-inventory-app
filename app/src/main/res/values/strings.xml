@@ -45,4 +45,6 @@
     <string name="ingredient">Ingredient</string>
     <string name="expiry_in">Expiry</string>
     <string name="findFoodbanks">Find nearby foodbanks</string>
+    <string name="expiry_hint">Ingredient expired. Please discard and delete.</string>
+    <string name="consumed_hint">Ingredient consumed. Please delete.</string>
 </resources>

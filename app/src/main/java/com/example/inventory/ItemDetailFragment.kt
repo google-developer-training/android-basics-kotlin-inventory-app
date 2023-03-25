@@ -18,9 +18,7 @@ package com.example.inventory
 
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +32,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.data.Item
 import com.example.inventory.data.getDaysToExpiry
+import com.example.inventory.data.hasExpired
+import com.example.inventory.data.isConsumed
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -83,7 +83,12 @@ class ItemDetailFragment : Fragment() {
             quantity.text = item.quantity.toString()
             decrementItem.isEnabled = viewModel.isStockAvailable(item)
             incrementItem.isEnabled = viewModel.isStockAvailable(item)
-            decrementItem.setOnClickListener { viewModel.sellItem(item) }
+            decrementItem.setOnClickListener {
+                viewModel.sellItem(item)
+                if (item.quantity <= 1) {
+                    showConfirmationDialog()
+                }
+            }
             incrementItem.setOnClickListener { viewModel.incrementItem(item) }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             sendNotification.setOnClickListener { sendNotification() }
@@ -97,6 +102,14 @@ class ItemDetailFragment : Fragment() {
             binding.imageView.visibility = View.VISIBLE
         }
 
+        binding.message.visibility = View.VISIBLE
+        if (item.hasExpired()) {
+            binding.message.text = getString(R.string.expiry_hint)
+        } else if (item.isConsumed()) {
+            binding.message.text = getString(R.string.consumed_hint)
+        } else {
+            binding.message.visibility = View.GONE
+        }
     }
 
     /**
