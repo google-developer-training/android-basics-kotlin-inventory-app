@@ -247,7 +247,7 @@ class AddItemFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         // For rendering and post-processing (for database storage)
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && (requestCode == pickImage || requestCode == REQUEST_IMAGE_CAPTURE)) {
 
             // For processing the gallery-retrieved image
             if (resultCode == RESULT_OK && requestCode == pickImage) {
