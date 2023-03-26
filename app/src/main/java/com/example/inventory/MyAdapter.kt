@@ -3,11 +3,13 @@ package com.example.inventory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
+import com.squareup.picasso.Picasso
 
-class MyAdapter(private val recipesList: ArrayList<myRecipe>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(private val recipesList: Array<Recipe>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -21,15 +23,15 @@ class MyAdapter(private val recipesList: ArrayList<myRecipe>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = recipesList[position]
-        holder.titleImage.setImageResource(currentItem.titleImage)
-        holder.recipeName.text = currentItem.recipeName
+        val recipe = recipesList[position]
+        Picasso.get().load(recipe.image).into(holder.recipeImage)
+        holder.recipeName.text = recipe.title
     }
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val titleImage: ShapeableImageView = itemView.findViewById(R.id.title_image)
+        val recipeImage: ImageView = itemView.findViewById(R.id.recipe_image)
         val recipeName : TextView = itemView.findViewById(R.id.recipe_name)
 
 

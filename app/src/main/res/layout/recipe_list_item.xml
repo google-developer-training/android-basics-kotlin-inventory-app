@@ -9,7 +9,7 @@
     android:foreground="?android:attr/selectableItemBackground">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/title_image"
+        android:id="@+id/recipe_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:adjustViewBounds="true"
