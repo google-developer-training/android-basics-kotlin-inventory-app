@@ -61,9 +61,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS ) == PackageManager.PERMISSION_GRANTED) {
             setupNotifications()
         }
-
-        // api stuff
-        getRecipes()
     }
 
 
@@ -97,52 +94,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(WORK_ID, ExistingPeriodicWorkPolicy.KEEP, notificationsRequest)
     }
 
-    private fun getRecipes() {
-        val url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=c08a9abc204a46908523eeddcf170c27&ingredients=apples,+flour,+sugar"
-        val apiService = MyApiService()
-        apiService.makeApiRequest(url, MyCallback())
-    }
-
-}
-
-data class Recipe(
-    val id: Int,
-    val title: String,
-    val image: String,
-    val missedIngredients: List<Ingredient>,
-    val usedIngredients: List<Ingredient>,
-    val unusedIngredients: List<Ingredient>
-)
-
-data class Ingredient(
-    val id: Int,
-    val name: String,
-    val image: String
-)
-
-class MyApiService {
-
-    fun makeApiRequest(url: String, callback: Callback) {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(url)
-            .build()
-
-        client.newCall(request).enqueue(callback)
-    }
 }
 
 
-class MyCallback : Callback {
-    override fun onResponse(call: okhttp3.Call, response: Response) {
-        val responseBody = response.body?.string()
-        val recipeList = Gson().fromJson(responseBody, Array<Recipe>::class.java)
-        recipeList.forEachIndexed { _, recipe ->
-            println("Recipe: ${recipe.title}")
-        }
-    }
-
-    override fun onFailure(call: okhttp3.Call, e: IOException) {
-        // Handle failure
-    }
-}
