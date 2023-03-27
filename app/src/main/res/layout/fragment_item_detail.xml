@@ -23,6 +23,16 @@
     tools:context=".ItemDetailFragment">
 
     <TextView
+        android:id="@+id/message"
+        style="@style/Widget.Inventory.TextView"
+        android:layout_width="wrap_content"
+        android:textColor="@color/message_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <TextView
         android:id="@+id/name_label"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="wrap_content"
@@ -30,15 +40,16 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/name"
         app:layout_constraintEnd_toStartOf="@+id/name"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/name"
         style="@style/Widget.Inventory.TextView"
         android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/margin"
         app:layout_constraintStart_toEndOf="@+id/name_label"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message"
         android:layout_marginStart="@dimen/margin_between_elements"
         tools:text="Apple" />
 
