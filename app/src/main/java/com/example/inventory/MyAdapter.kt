@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
 class MyAdapter(private val recipesList: Array<Recipe>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recipe_list_item,
@@ -26,6 +26,11 @@ class MyAdapter(private val recipesList: Array<Recipe>) : RecyclerView.Adapter<M
         val recipe = recipesList[position]
         Picasso.get().load(recipe.image).into(holder.recipeImage)
         holder.recipeName.text = recipe.title
+        val bundle = bundleOf("recipeTitle" to recipe.title, "recipeImage" to recipe.image)
+        holder.itemView.setOnClickListener {
+//            val action = TestFragmentDirections.actionTestFragmentToRecipeDetailFragment(bundle)
+            it.findNavController().navigate(R.id.recipeDetailFragment, bundle)
+        }
     }
 
 

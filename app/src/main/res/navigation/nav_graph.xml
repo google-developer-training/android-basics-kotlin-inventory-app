@@ -68,5 +68,21 @@
         android:id="@+id/testFragment"
         android:name="com.example.inventory.TestFragment"
         android:label="test_fragment"
-        tools:layout="@layout/recipe_list_fragment" />
+        tools:layout="@layout/recipe_list_fragment">
+    <action
+        android:id="@+id/action_testFragment_to_recipeDetailFragment"
+        app:destination="@id/recipeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.inventory.RecipeDetailFragment"
+        android:label="@string/item_detail_fragment_title"
+        tools:layout="@layout/recipe_list_item">
+        <argument
+            android:name="recipeTitle"
+            app:argType="string" />
+        <argument
+            android:name="recipeImage"
+            app:argType="string" />
+    </fragment>
 </navigation>
