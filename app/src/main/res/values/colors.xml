@@ -22,4 +22,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red_700">#FFD32F2F</color>
+    <color name="ingredient_expired">#FBE9E7</color>
+    <color name="ingredient_consumed">#66000000</color>
+    <color name="message_hint">#810000</color>
 </resources>

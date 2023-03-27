@@ -16,13 +16,10 @@
 
 package com.example.inventory
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.inventory.data.Item
 import com.example.inventory.data.ItemDao
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -30,15 +27,21 @@ import kotlinx.coroutines.launch
  *
  */
 class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
-
+    val allItems: MutableLiveData<List<Item>> = MutableLiveData<List<Item>>()
     // Cache all items form the database using LiveData.
-    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
+    //    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
+
+    fun getItems(searchString: String=""){
+        viewModelScope.launch(Dispatchers.IO) {
+            allItems.postValue(itemDao.getSearchedItems(searchString))
+        }
+    }
 
     /**
      * Returns true if stock is available to sell, false otherwise.
      */
     fun isStockAvailable(item: Item): Boolean {
-        return (item.quantityInStock > 0)
+        return (item.quantity > 0)
     }
 
     /**
@@ -46,11 +49,13 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      */
     fun updateItem(
         itemId: Int,
-        itemName: String,
-        itemPrice: String,
-        itemCount: String
+        name: String,
+        expiryDate: String,
+        label: String,
+        quantity: String,
+        imageByte: ByteArray?,
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)
+        val updatedItem = getUpdatedItemEntry(itemId, name, expiryDate, label, quantity, imageByte)
         updateItem(updatedItem)
     }
 
@@ -68,9 +73,17 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Decreases the stock by one unit and updates the database.
      */
     fun sellItem(item: Item) {
-        if (item.quantityInStock > 0) {
+        if (item.quantity > 0) {
             // Decrease the quantity by 1
-            val newItem = item.copy(quantityInStock = item.quantityInStock - 1)
+            val newItem = item.copy(quantity = item.quantity - 1)
+            updateItem(newItem)
+        }
+    }
+
+    fun incrementItem(item: Item) {
+        if (item.quantity > 0) {
+            // Decrease the quantity by 1
+            val newItem = item.copy(quantity = item.quantity + 1)
             updateItem(newItem)
         }
     }
@@ -78,8 +91,14 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Inserts the new Item into database.
      */
-    fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
-        val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
+    fun addNewItem(
+        name: String,
+        expiryDate: String,
+        label: String,
+        quantity: String,
+        imageByte: ByteArray?,
+    ) {
+        val newItem = getNewItemEntry(name, expiryDate, label, quantity, imageByte)
         insertItem(newItem)
     }
 
@@ -111,8 +130,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Returns true if the EditTexts are not empty
      */
-    fun isEntryValid(itemName: String, itemPrice: String, itemCount: String): Boolean {
-        if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
+    fun isEntryValid(field: String): Boolean {
+        if (field.isBlank()) {
             return false
         }
         return true
@@ -122,11 +141,19 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Returns an instance of the [Item] entity class with the item info entered by the user.
      * This will be used to add a new entry to the Inventory database.
      */
-    private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String): Item {
+    private fun getNewItemEntry(
+        name: String,
+        expiryDate: String,
+        label: String,
+        quantity: String,
+        imageByte: ByteArray?,
+    ): Item {
         return Item(
-            itemName = itemName,
-            itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            name = name,
+            expiryDate = expiryDate,
+            label = label,
+            quantity = quantity.toDouble(),
+            imageByte = imageByte
         )
     }
 
@@ -136,15 +163,19 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      */
     private fun getUpdatedItemEntry(
         itemId: Int,
-        itemName: String,
-        itemPrice: String,
-        itemCount: String
+        name: String,
+        expiryDate: String,
+        label: String,
+        quantity: String,
+        imageByte: ByteArray?
     ): Item {
         return Item(
             id = itemId,
-            itemName = itemName,
-            itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            name = name,
+            expiryDate = expiryDate,
+            label = label,
+            quantity = quantity.toDouble(),
+            imageByte = imageByte
         )
     }
 }

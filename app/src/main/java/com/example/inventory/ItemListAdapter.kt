@@ -15,13 +15,17 @@
  */
 package com.example.inventory
 
+//import com.example.inventory.data.getFormattedPrice
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventory.data.Item
-import com.example.inventory.data.getFormattedPrice
+import com.example.inventory.data.getDaysToExpiry
+import com.example.inventory.data.hasExpired
+import com.example.inventory.data.isConsumed
 import com.example.inventory.databinding.ItemListItemBinding
 
 /**
@@ -53,11 +57,23 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
-            binding.itemName.text = item.itemName
-            binding.itemPrice.text = item.getFormattedPrice()
-            binding.itemQuantity.text = item.quantityInStock.toString()
+            binding.name.text = item.name
+            val expiredDays = item.getDaysToExpiry().toString()
+            val formatExpiredDays = "$expiredDays days"
+            binding.expiryDate.text = formatExpiredDays
+
+            if (item.hasExpired()) {
+                binding.card.setCardBackgroundColor(ContextCompat.getColor(binding.card.context, R.color.ingredient_expired))
+            }
+            if (item.isConsumed()) {
+                binding.name.setTextColor(ContextCompat.getColor(binding.card.context, R.color.ingredient_consumed))
+                binding.expiryDate.setTextColor(ContextCompat.getColor(binding.card.context, R.color.ingredient_consumed))
+            }
         }
     }
+
+
+
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Item>() {
@@ -66,7 +82,7 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
             }
 
             override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-                return oldItem.itemName == newItem.itemName
+                return oldItem.name == newItem.name
             }
         }
     }
