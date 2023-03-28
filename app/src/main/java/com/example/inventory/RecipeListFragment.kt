@@ -23,12 +23,12 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [TestFragment.newInstance] factory method to
+ * Use the [RecipeListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TestFragment : Fragment() {
+class RecipeListFragment : Fragment() {
 
-    private lateinit var adapter : MyAdapter
+    private lateinit var adapter : RecipeListAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var recipeList : Array<Recipe>
 
@@ -66,14 +66,14 @@ class TestFragment : Fragment() {
         }
     }
 
-    class MyCallback(private val fragment: TestFragment) : Callback {
+    class MyCallback(private val fragment: RecipeListFragment) : Callback {
         override fun onResponse(call: okhttp3.Call, response: Response) {
             val responseBody = response.body?.string()
             val recipeList = Gson().fromJson(responseBody, Array<Recipe>::class.java)
             fragment.activity?.runOnUiThread {
                 val recyclerView = fragment.view?.findViewById<RecyclerView>(R.id.recycler_view)
                 val layoutManager = LinearLayoutManager(fragment.context)
-                val adapter = MyAdapter(recipeList)
+                val adapter = RecipeListAdapter(recipeList)
                 if (recyclerView != null) {
                     recyclerView.layoutManager = layoutManager
                     recyclerView.setHasFixedSize(true)

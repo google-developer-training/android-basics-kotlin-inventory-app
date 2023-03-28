@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class MyAdapter(private val recipesList: Array<Recipe>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class RecipeListAdapter(private val recipesList: Array<Recipe>) : RecyclerView.Adapter<RecipeListAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recipe_list_item,
@@ -28,7 +28,6 @@ class MyAdapter(private val recipesList: Array<Recipe>) : RecyclerView.Adapter<M
         holder.recipeName.text = recipe.title
         val bundle = bundleOf("recipeTitle" to recipe.title, "recipeImage" to recipe.image)
         holder.itemView.setOnClickListener {
-//            val action = TestFragmentDirections.actionTestFragmentToRecipeDetailFragment(bundle)
             it.findNavController().navigate(R.id.recipeDetailFragment, bundle)
         }
     }
