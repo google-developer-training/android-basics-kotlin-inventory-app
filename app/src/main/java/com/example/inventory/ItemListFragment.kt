@@ -74,7 +74,7 @@ class ItemListFragment : Fragment() {
         }
 
         binding.recipesButton.setOnClickListener {
-            val action = ItemListFragmentDirections.actionItemListFragmentToTestFragment()
+            val action = ItemListFragmentDirections.actionItemListFragmentToRecipeListFragment()
             this.findNavController().navigate(action)
         }
 
