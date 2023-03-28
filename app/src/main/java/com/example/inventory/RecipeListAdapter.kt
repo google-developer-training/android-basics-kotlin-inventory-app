@@ -1,5 +1,6 @@
 package com.example.inventory
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,10 @@ class RecipeListAdapter(private val recipesList: Array<Recipe>) : RecyclerView.A
         val recipe = recipesList[position]
         Picasso.get().load(recipe.image).into(holder.recipeImage)
         holder.recipeName.text = recipe.title
-        val bundle = bundleOf("recipeTitle" to recipe.title, "recipeImage" to recipe.image)
+        val bundle = Bundle()
+        bundle.putString("recipeTitle", recipe.title)
+        bundle.putString("recipeImage", recipe.image)
+        bundle.putString("missedIngredients", recipe.missedIngredients.toString())
         holder.itemView.setOnClickListener {
             it.findNavController().navigate(R.id.recipeDetailFragment, bundle)
         }

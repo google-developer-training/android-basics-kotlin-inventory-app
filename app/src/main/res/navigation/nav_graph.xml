@@ -84,5 +84,8 @@
         <argument
             android:name="recipeImage"
             app:argType="string" />
+        <argument
+            android:name="missedIngredients"
+            app:argType="string"/>
     </fragment>
 </navigation>
