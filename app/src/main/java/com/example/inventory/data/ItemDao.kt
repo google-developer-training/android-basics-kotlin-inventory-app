@@ -28,9 +28,12 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface ItemDao {
-
+    //    @Query("SELECT * from item where name like '%'||:searchText||'%'")
     @Query("SELECT * from item ORDER BY name ASC")
     fun getItems(): Flow<List<Item>>
+
+    @Query("SELECT * from item where name like '%'||:searchText||'%'")
+    fun getSearchedItems(searchText:String):List<Item>
 
     @Query("SELECT * from item WHERE id = :id")
     fun getItem(id: Int): Flow<Item>

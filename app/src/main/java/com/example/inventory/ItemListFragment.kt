@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -75,11 +76,31 @@ class ItemListFragment : Fragment() {
             this.findNavController().navigate(action)
         }
 
+        binding.grocerySearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                p0?.let {
+                    viewModel.getItems(p0)
+                }
+                return true
+            }
+
+        })
+
         binding.foodBankButton.setOnClickListener {
             val gmmIntentUri = Uri.parse("geo:0,0?q=food donation")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
             startActivity(mapIntent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getItems()
     }
 }
