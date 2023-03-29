@@ -31,8 +31,9 @@ class RecipeDetailFragment : Fragment() {
         println(recipe.missedIngredients)
 
         val recipeNameText = view.findViewById<TextView>(R.id.recipe_name)
+        recipeNameText.text = recipe.title
         val recipeImageView = view.findViewById<ImageView>(R.id.recipe_image)
-//        Picasso.get().load(recipeImage).into(recipeImageView)
+        Picasso.get().load(recipe.image).into(recipeImageView)
 
     }
 }

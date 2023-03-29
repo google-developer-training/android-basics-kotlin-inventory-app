@@ -19,8 +19,6 @@
         android:src="@drawable/cookie"
         />
 
-    <!--    app:shapeAppearanceOverlay="@style/RoundCorner"-->
-
     <TextView
         android:id="@+id/recipe_name"
         android:layout_width="0dp"
