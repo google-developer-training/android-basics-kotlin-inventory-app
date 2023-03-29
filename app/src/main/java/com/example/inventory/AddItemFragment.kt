@@ -32,6 +32,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -133,6 +134,7 @@ class AddItemFragment : Fragment() {
             expiryDate.setText(item.expiryDate, TextView.BufferType.SPANNABLE)
             label.setText(item.label.toString(), TextView.BufferType.SPANNABLE)
             quantity.setText(item.quantity.toString(), TextView.BufferType.SPANNABLE)
+            unit.setText(item.unit.toString(), TextView.BufferType.SPANNABLE)
             binding.imageView.setImageBitmap(loadImageByte)
             saveAction.setOnClickListener { updateItem() }
         }
@@ -156,6 +158,7 @@ class AddItemFragment : Fragment() {
                 binding.expiryDate.text.toString(),
                 binding.label.text.toString(),
                 binding.quantity.text.toString(),
+                binding.unit.text.toString(),
                 imageByte
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
@@ -174,6 +177,7 @@ class AddItemFragment : Fragment() {
                 this.binding.expiryDate.text.toString(),
                 this.binding.label.text.toString(),
                 this.binding.quantity.text.toString(),
+                this.binding.unit.text.toString(),
                 this.imageByte,
             )
             val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
@@ -268,6 +272,18 @@ class AddItemFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        // Adding Dropdown options for ingredient name, label and unit
+        val names = arrayOf("Apple", "Orange", "Bread", "Milk")
+        val labels = arrayOf("Fruits", "Vegetables", "Meat")
+        val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds")
+        val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, names)
+        val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, labels)
+        val unitsArray = ArrayAdapter(requireContext(), R.layout.list_item, units)
+        binding.name.setAdapter(namesArray)
+        binding.label.setAdapter(labelsArray)
+        binding.unit.setAdapter(unitsArray)
 
         val expiryDate = binding.expiryDate
         expiryDate.setOnFocusChangeListener { _, hasFocus ->
