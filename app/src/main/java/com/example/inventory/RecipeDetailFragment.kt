@@ -36,12 +36,15 @@ class RecipeDetailFragment : Fragment() {
         val recipeImageView = view.findViewById<ImageView>(R.id.recipe_image)
         Picasso.get().load(recipe.image).into(recipeImageView)
 
+        val spacing = resources.getDimensionPixelSize(R.dimen.item_spacing)
+
         val usedIngredientsRecyclerView = view.findViewById<RecyclerView>(R.id.used_ingredient_recycler_view)
         val usedIngredientLayoutManager = GridLayoutManager(this.activity, 2)
         usedIngredientsRecyclerView.layoutManager = usedIngredientLayoutManager
 
         val usedIngredientAdapter = IngredientListAdapter(recipe.usedIngredients)
         usedIngredientsRecyclerView.adapter = usedIngredientAdapter
+        usedIngredientsRecyclerView.addItemDecoration(ItemSpacingDecoration(spacing))
 
         val missedIngredientsRecyclerView = view.findViewById<RecyclerView>(R.id.missed_ingredient_recycler_view)
         val missedIngredientLayoutManager = GridLayoutManager(this.activity, 2)
@@ -49,6 +52,7 @@ class RecipeDetailFragment : Fragment() {
 
         val missedIngredientAdapter = IngredientListAdapter(recipe.missedIngredients)
         missedIngredientsRecyclerView.adapter = missedIngredientAdapter
+        missedIngredientsRecyclerView.addItemDecoration(ItemSpacingDecoration(spacing))
 
     }
 }
