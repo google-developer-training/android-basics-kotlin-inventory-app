@@ -71,8 +71,9 @@ class AddItemFragment : Fragment() {
     private var _binding: FragmentAddItemBinding? = null
     private val binding get() = _binding!!
 
-    // For file upload
+    // For file upload and camera
     private val pickImage = 100
+    private val REQUEST_IMAGE_CAPTURE = 101
     private var imagePath: Uri? = null
     private var imageBitmap: Bitmap? = null
     private var imageByte: ByteArray? = null
@@ -202,7 +203,7 @@ class AddItemFragment : Fragment() {
 
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                var month = (monthOfYear+1).toString()
+                var month = (monthOfYear + 1).toString()
                 var day = dayOfMonth.toString()
                 if (monthOfYear < 10) {
                     month = "0$month"
@@ -253,15 +254,26 @@ class AddItemFragment : Fragment() {
     // File upload: Stores the image the user selects from their gallery into the 'imagePath' variable
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == pickImage) {
-            imagePath = data?.data
-//            binding.imageView.setImageURI(imagePath)
-            imageBitmap = if (Build.VERSION.SDK_INT >= 28) {
-                val source = ImageDecoder.createSource(requireActivity().contentResolver,imagePath!!)
-                ImageDecoder.decodeBitmap(source)
-            } else {
-                MediaStore.Images.Media.getBitmap(requireActivity().contentResolver,imagePath!!)
+
+        // For rendering and post-processing (for database storage)
+        if (resultCode == RESULT_OK && (requestCode == pickImage || requestCode == REQUEST_IMAGE_CAPTURE)) {
+
+            // For processing the gallery-retrieved image
+            if (resultCode == RESULT_OK && requestCode == pickImage) {
+                imagePath = data?.data
+                imageBitmap = if (Build.VERSION.SDK_INT >= 28) {
+                    val source =
+                        ImageDecoder.createSource(requireActivity().contentResolver, imagePath!!)
+                    ImageDecoder.decodeBitmap(source)
+                } else {
+                    MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, imagePath!!)
+                }
+
+                // For processing the camera image
+            } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
+                imageBitmap = data?.extras?.get("data") as Bitmap
             }
+
             binding.imageView.setImageBitmap(imageBitmap)
             imageBitmap?.compress(Bitmap.CompressFormat.JPEG, 33, bos)
             imageByte = bos?.toByteArray();
@@ -325,9 +337,14 @@ class AddItemFragment : Fragment() {
         }
 
         // Opens the phone's gallery
-        binding.uploadPhoto.setOnClickListener{
+        binding.uploadPhoto.setOnClickListener {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
+        }
+
+        binding.takePhoto.setOnClickListener {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
         }
     }
 
