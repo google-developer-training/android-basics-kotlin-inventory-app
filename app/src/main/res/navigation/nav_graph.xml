@@ -78,11 +78,8 @@
         android:name="com.example.inventory.RecipeDetailFragment"
         android:label="@string/recipe_detail_fragment_title"
         tools:layout="@layout/fragment_recipe_detail">
-        <argument
-            android:name="recipeTitle"
-            app:argType="string" />
-        <argument
-            android:name="recipeImage"
-            app:argType="string" />
+
+        <argument android:name="recipe"
+            app:argType="com.example.inventory.Recipe" />
     </fragment>
 </navigation>
