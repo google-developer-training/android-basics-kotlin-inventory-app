@@ -40,8 +40,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentAddItemBinding
+import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.nio.charset.Charset
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Fragment to add or update an item in the Inventory database.
@@ -274,16 +279,22 @@ class AddItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        // Adding Dropdown options for ingredient name, label and unit
-        val names = arrayOf("Apple", "Orange", "Bread", "Milk")
+        val ingredientsListFromCSV = ArrayList<String>()
+        val inputStream: InputStream = resources.openRawResource(R.raw.ingredients_list)
+        val reader = BufferedReader(InputStreamReader(inputStream, Charset.defaultCharset()))
+        reader.readLines().forEach {
+            ingredientsListFromCSV.add(it)
+        }
+//         Adding Dropdown options for ingredient name, label and unit
         val labels = arrayOf("Fruits", "Vegetables", "Meat")
-        val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds")
-        val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, names)
+        val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds", "Count")
+        val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, ingredientsListFromCSV)
         val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, labels)
         val unitsArray = ArrayAdapter(requireContext(), R.layout.list_item, units)
         binding.name.setAdapter(namesArray)
         binding.label.setAdapter(labelsArray)
         binding.unit.setAdapter(unitsArray)
+        binding.unit.setText("Count", false)
 
         val expiryDate = binding.expiryDate
         expiryDate.setOnFocusChangeListener { _, hasFocus ->
