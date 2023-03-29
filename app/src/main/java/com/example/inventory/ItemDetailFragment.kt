@@ -17,7 +17,7 @@
 package com.example.inventory
 
 import android.content.pm.PackageManager
-import android.net.Uri
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +32,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.data.Item
 import com.example.inventory.data.getDaysToExpiry
+import com.example.inventory.data.hasExpired
+import com.example.inventory.data.isConsumed
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -66,6 +68,14 @@ class ItemDetailFragment : Fragment() {
      * Binds views with the passed in item data.
      */
     private fun bind(item: Item) {
+
+        // Only try to load the image if the user added one
+        var loadImageByte = if (item.imageByte == null) {
+            null
+        } else {
+            BitmapFactory.decodeByteArray(item.imageByte, 0, item.imageByte!!.size)
+        }
+
         binding.apply {
             name.text = item.name
             expiryDate.text = item.expiryDate
@@ -73,12 +83,32 @@ class ItemDetailFragment : Fragment() {
             quantity.text = item.quantity.toString()
             decrementItem.isEnabled = viewModel.isStockAvailable(item)
             incrementItem.isEnabled = viewModel.isStockAvailable(item)
-            decrementItem.setOnClickListener { viewModel.sellItem(item) }
-            incrementItem.setOnClickListener{ viewModel.incrementItem(item) }
+            decrementItem.setOnClickListener {
+                viewModel.sellItem(item)
+                if (item.quantity <= 1) {
+                    showConfirmationDialog()
+                }
+            }
+            incrementItem.setOnClickListener { viewModel.incrementItem(item) }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             sendNotification.setOnClickListener { sendNotification() }
             editItem.setOnClickListener { editItem() }
-            imageView.setImageURI(Uri.parse(item.imagePath))
+            binding.imageView.setImageBitmap(loadImageByte)
+        }
+
+        if (item.imageByte == null) {
+            binding.imageView.visibility = View.GONE
+        } else {
+            binding.imageView.visibility = View.VISIBLE
+        }
+
+        binding.message.visibility = View.VISIBLE
+        if (item.hasExpired()) {
+            binding.message.text = getString(R.string.expiry_hint)
+        } else if (item.isConsumed()) {
+            binding.message.text = getString(R.string.consumed_hint)
+        } else {
+            binding.message.visibility = View.GONE
         }
     }
 
@@ -120,8 +150,16 @@ class ItemDetailFragment : Fragment() {
      * Sends a push notification to inform the user of the expiry date
      */
     private fun sendNotification() {
-        if (ContextCompat.checkSelfPermission(this@ItemDetailFragment.requireContext(), android.Manifest.permission.POST_NOTIFICATIONS ) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this@ItemDetailFragment.requireActivity(),arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 1)
+        if (ContextCompat.checkSelfPermission(
+                this@ItemDetailFragment.requireContext(),
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this@ItemDetailFragment.requireActivity(),
+                arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                1
+            )
         } else {
             val builder = NotificationCompat.Builder(this.requireContext(), MainActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications)

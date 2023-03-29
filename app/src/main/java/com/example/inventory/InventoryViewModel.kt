@@ -16,13 +16,10 @@
 
 package com.example.inventory
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.inventory.data.Item
 import com.example.inventory.data.ItemDao
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -30,9 +27,15 @@ import kotlinx.coroutines.launch
  *
  */
 class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
-
+    val allItems: MutableLiveData<List<Item>> = MutableLiveData<List<Item>>()
     // Cache all items form the database using LiveData.
-    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
+    //    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
+
+    fun getItems(searchString: String=""){
+        viewModelScope.launch(Dispatchers.IO) {
+            allItems.postValue(itemDao.getSearchedItems(searchString))
+        }
+    }
 
     /**
      * Returns true if stock is available to sell, false otherwise.
@@ -50,9 +53,10 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         expiryDate: String,
         label: String,
         quantity: String,
-        imagePath: String,
+        unit: String,
+        imageByte: ByteArray?,
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, name, expiryDate, label, quantity, imagePath)
+        val updatedItem = getUpdatedItemEntry(itemId, name, expiryDate, label, quantity, unit, imageByte)
         updateItem(updatedItem)
     }
 
@@ -93,9 +97,10 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         expiryDate: String,
         label: String,
         quantity: String,
-        imagePath: String,
+        unit: String,
+        imageByte: ByteArray?,
     ) {
-        val newItem = getNewItemEntry(name, expiryDate, label, quantity, imagePath)
+        val newItem = getNewItemEntry(name, expiryDate, label, quantity, unit, imageByte)
         insertItem(newItem)
     }
 
@@ -143,14 +148,16 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         expiryDate: String,
         label: String,
         quantity: String,
-        imagePath: String,
+        unit:String,
+        imageByte: ByteArray?,
     ): Item {
         return Item(
             name = name,
             expiryDate = expiryDate,
             label = label,
             quantity = quantity.toDouble(),
-            imagePath = imagePath
+            unit = unit,
+            imageByte = imageByte
         )
     }
 
@@ -164,7 +171,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         expiryDate: String,
         label: String,
         quantity: String,
-        imagePath: String
+        unit: String,
+        imageByte: ByteArray?
     ): Item {
         return Item(
             id = itemId,
@@ -172,7 +180,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
             expiryDate = expiryDate,
             label = label,
             quantity = quantity.toDouble(),
-            imagePath = imagePath
+            unit = unit,
+            imageByte = imageByte
         )
     }
 }

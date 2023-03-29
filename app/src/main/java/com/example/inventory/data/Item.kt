@@ -30,23 +30,38 @@ import java.util.concurrent.TimeUnit
 data class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    @ColumnInfo(name = "quantity")
-    val quantity: Double,
     @ColumnInfo(name = "name", defaultValue = "Apple")
     val name: String = "Apple",
     @ColumnInfo(name = "expiryDate", defaultValue = "1680291840000" /* default = March 31 2023*/)
     val expiryDate: String = "expiry string",
     @ColumnInfo(name = "label", defaultValue = "")
     val label: String = "",
+    @ColumnInfo(name = "quantity")
+    val quantity: Double,
+    @ColumnInfo(name = "unit", defaultValue = "")
+    val unit: String = "",
     @ColumnInfo(name = "image", defaultValue = "")
-    val imagePath: String = "",
+    val imageByte: ByteArray?,
     @ColumnInfo(name = "discarded", defaultValue = false.toString())
     val discarded: Boolean = false,
     @ColumnInfo(name = "addedOn", defaultValue = "1678394640000" /* default = March 1 2023*/)
     val addedOn: Long = 1678394640000,
     @ColumnInfo(name = "updatedOn", defaultValue = "1678394640000" /* default = March 1 2023*/)
     val updatedOn: Long = 1678394640000,
-)
+) {
+    // Processing for ImagePath property (as it's a ByteArray)
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        other as Item
+        if (!imageByte.contentEquals(other.imageByte)) return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return imageByte.contentHashCode()
+    }
+}
 /**
  * Returns the passed in price in currency format.
  */
@@ -64,4 +79,18 @@ fun Item.getDaysToExpiry(): Long {
     val diffInDays: Long = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS)
 
     return diffInDays
+}
+
+/**
+ * Returns boolean indicating if item has been consumed or not.
+ */
+fun Item.isConsumed(): Boolean {
+    return quantity <= 0
+}
+
+/**
+ * Returns boolean indicating if item has expired or not.
+ */
+fun Item.hasExpired(): Boolean {
+    return getDaysToExpiry() < 0
 }
