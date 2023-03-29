@@ -30,14 +30,16 @@ import java.util.concurrent.TimeUnit
 data class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    @ColumnInfo(name = "quantity")
-    val quantity: Double,
     @ColumnInfo(name = "name", defaultValue = "Apple")
     val name: String = "Apple",
     @ColumnInfo(name = "expiryDate", defaultValue = "1680291840000" /* default = March 31 2023*/)
     val expiryDate: String = "expiry string",
     @ColumnInfo(name = "label", defaultValue = "")
     val label: String = "",
+    @ColumnInfo(name = "quantity")
+    val quantity: Double,
+    @ColumnInfo(name = "unit", defaultValue = "")
+    val unit: String = "",
     @ColumnInfo(name = "image", defaultValue = "")
     val imageByte: ByteArray?,
     @ColumnInfo(name = "discarded", defaultValue = false.toString())
