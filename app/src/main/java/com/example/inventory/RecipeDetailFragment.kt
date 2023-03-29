@@ -27,15 +27,12 @@ class RecipeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args: RecipeDetailFragmentArgs by navArgs()
-        val recipeName = args.recipeTitle
-        val recipeImage = args.recipeImage
-        val missedIngredients = args.missedIngredients
-        println(missedIngredients)
+        val recipe = args.recipe
+        println(recipe.missedIngredients)
 
         val recipeNameText = view.findViewById<TextView>(R.id.recipe_name)
-        recipeNameText.text = recipeName
         val recipeImageView = view.findViewById<ImageView>(R.id.recipe_image)
-        Picasso.get().load(recipeImage).into(recipeImageView)
+//        Picasso.get().load(recipeImage).into(recipeImageView)
 
     }
 }

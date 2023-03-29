@@ -27,10 +27,9 @@ class RecipeListAdapter(private val recipesList: Array<Recipe>) : RecyclerView.A
         val recipe = recipesList[position]
         Picasso.get().load(recipe.image).into(holder.recipeImage)
         holder.recipeName.text = recipe.title
+        // recipe information passed to RecipeDetailFragment upon click
         val bundle = Bundle()
-        bundle.putString("recipeTitle", recipe.title)
-        bundle.putString("recipeImage", recipe.image)
-        bundle.putString("missedIngredients", recipe.missedIngredients.toString())
+        bundle.putParcelable("recipe", recipe)
         holder.itemView.setOnClickListener {
             it.findNavController().navigate(R.id.recipeDetailFragment, bundle)
         }
