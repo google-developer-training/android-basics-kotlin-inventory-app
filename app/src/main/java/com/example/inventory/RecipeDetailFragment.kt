@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 class RecipeDetailFragment : Fragment() {
 
@@ -28,12 +30,25 @@ class RecipeDetailFragment : Fragment() {
 
         val args: RecipeDetailFragmentArgs by navArgs()
         val recipe = args.recipe
-        println(recipe.missedIngredients)
 
         val recipeNameText = view.findViewById<TextView>(R.id.recipe_name)
         recipeNameText.text = recipe.title
         val recipeImageView = view.findViewById<ImageView>(R.id.recipe_image)
         Picasso.get().load(recipe.image).into(recipeImageView)
+
+        val usedIngredientsRecyclerView = view.findViewById<RecyclerView>(R.id.used_ingredient_recycler_view)
+        val usedIngredientLayoutManager = GridLayoutManager(this.activity, 2)
+        usedIngredientsRecyclerView.layoutManager = usedIngredientLayoutManager
+
+        val usedIngredientAdapter = IngredientListAdapter(recipe.usedIngredients)
+        usedIngredientsRecyclerView.adapter = usedIngredientAdapter
+
+        val missedIngredientsRecyclerView = view.findViewById<RecyclerView>(R.id.missed_ingredient_recycler_view)
+        val missedIngredientLayoutManager = GridLayoutManager(this.activity, 2)
+        missedIngredientsRecyclerView.layoutManager = missedIngredientLayoutManager
+
+        val missedIngredientAdapter = IngredientListAdapter(recipe.missedIngredients)
+        missedIngredientsRecyclerView.adapter = missedIngredientAdapter
 
     }
 }
