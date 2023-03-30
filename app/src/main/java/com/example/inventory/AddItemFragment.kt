@@ -46,7 +46,6 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.nio.charset.Charset
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Fragment to add or update an item in the Inventory database.
@@ -58,7 +57,9 @@ class AddItemFragment : Fragment() {
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
             (activity?.application as InventoryApplication).database
-                .itemDao()
+                .itemDao(),
+            (activity?.application as InventoryApplication).database
+                .labelDao()
         )
     }
     private val navigationArgs: ItemDetailFragmentArgs by navArgs()
@@ -298,10 +299,10 @@ class AddItemFragment : Fragment() {
             ingredientsListFromCSV.add(it)
         }
 //         Adding Dropdown options for ingredient name, label and unit
-        val labels = arrayOf("Fruits", "Vegetables", "Meat")
+        val labels = viewModel.allLabels
         val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds", "Count")
         val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, ingredientsListFromCSV)
-        val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, labels)
+        val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, labels.value.orEmpty())
         val unitsArray = ArrayAdapter(requireContext(), R.layout.list_item, units)
         binding.name.setAdapter(namesArray)
         binding.label.setAdapter(labelsArray)
