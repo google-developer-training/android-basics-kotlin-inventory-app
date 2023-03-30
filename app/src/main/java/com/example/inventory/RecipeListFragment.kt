@@ -28,10 +28,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class RecipeListFragment : Fragment() {
 
-    private lateinit var adapter : RecipeListAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var recipeList : Array<Recipe>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -50,7 +46,7 @@ class RecipeListFragment : Fragment() {
     }
 
     private fun getRecipes() {
-        val url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=c08a9abc204a46908523eeddcf170c27&ingredients=apples,+flour,+sugar&number=2"
+        val url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=33dde6e60fde4a11bc1040e239a4fdb3&ingredients=apples,+flour,+sugar&number=1"
         val apiService = MyApiService()
         apiService.makeApiRequest(url, MyCallback(this))
     }
@@ -69,6 +65,7 @@ class RecipeListFragment : Fragment() {
     class MyCallback(private val fragment: RecipeListFragment) : Callback {
         override fun onResponse(call: okhttp3.Call, response: Response) {
             val responseBody = response.body?.string()
+            println(responseBody)
             val recipeList = Gson().fromJson(responseBody, Array<Recipe>::class.java)
             fragment.activity?.runOnUiThread {
                 val recyclerView = fragment.view?.findViewById<RecyclerView>(R.id.recycler_view)
