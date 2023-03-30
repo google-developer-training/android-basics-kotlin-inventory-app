@@ -86,3 +86,11 @@ data class Ingredient(
     }
 
 }
+
+data class RecipeInformation(
+    val readyInMinutes: String,
+    val dairyFree: Boolean,
+    val glutenFree: Boolean,
+    val vegetarian: Boolean,
+    val vegan: Boolean,
+    )

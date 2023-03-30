@@ -39,6 +39,37 @@
         tools:text="Chocolate Chip Cookie" />
 
     <TextView
+        android:id="@+id/recipe_cooking_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="8dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_name"
+        android:gravity="center"
+        tools:text="Cooking Time: 45 minutes" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dietary_restrictions_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_cooking_time"/>
+
+    <View
+        android:id="@+id/divider_0"
+        style="@style/Divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dietary_restrictions_recycler_view"
+        android:visibility="invisible"/>
+
+    <TextView
         android:id="@+id/used_ingredients_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +77,7 @@
         android:text="Ingredients Used"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipe_name" />
+        app:layout_constraintTop_toBottomOf="@+id/divider_0" />
 
     <View
         android:id="@+id/divider"
