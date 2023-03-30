@@ -97,7 +97,11 @@ class RecipeDetailFragment : Fragment() {
                 val dietaryRestrictionLayoutManager = LinearLayoutManager(fragment.activity, LinearLayoutManager.HORIZONTAL, false)
                 if (dietaryRestrictionRecyclerView != null) {
                     dietaryRestrictionRecyclerView.layoutManager = dietaryRestrictionLayoutManager
-                    val lstStrings = listOf(recipeInformation.readyInMinutes)
+                    val lstStrings = mutableListOf<String>()
+                    if(recipeInformation.dairyFree) lstStrings.add("Dairy Free")
+                    if(recipeInformation.glutenFree) lstStrings.add("Gluten Free")
+                    if(recipeInformation.vegan) lstStrings.add("Vegan")
+                    if(recipeInformation.vegetarian) lstStrings.add("Vegetarian")
                     val dietaryRestrictionAdapter = DietaryRestrictionListAdapter(lstStrings)
                     dietaryRestrictionRecyclerView.adapter = dietaryRestrictionAdapter
                 }
