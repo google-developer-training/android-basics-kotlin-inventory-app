@@ -65,7 +65,6 @@ class RecipeListFragment : Fragment() {
     class MyCallback(private val fragment: RecipeListFragment) : Callback {
         override fun onResponse(call: okhttp3.Call, response: Response) {
             val responseBody = response.body?.string()
-            println(responseBody)
             val recipeList = Gson().fromJson(responseBody, Array<Recipe>::class.java)
             fragment.activity?.runOnUiThread {
                 val recyclerView = fragment.view?.findViewById<RecyclerView>(R.id.recycler_view)
