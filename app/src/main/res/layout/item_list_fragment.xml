@@ -78,8 +78,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:contentDescription="@string/findFoodbanks"
-        android:src="@drawable/ic_foodbank"
+        android:contentDescription="@string/find_foodbanks"
+        android:src="@drawable/ic_nearby"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/divider1"
         app:tint="@android:color/white"/>
