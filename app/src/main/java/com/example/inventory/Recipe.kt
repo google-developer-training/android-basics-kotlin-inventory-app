@@ -94,3 +94,7 @@ data class RecipeInformation(
     val vegetarian: Boolean,
     val vegan: Boolean,
     )
+
+data class RecipeInstructions(
+    val step: String,
+)
