@@ -41,6 +41,7 @@ class RecipeDetailFragment : Fragment() {
 
         val args: RecipeDetailFragmentArgs by navArgs()
         val recipe = args.recipe
+        println(recipe.id)
 
         val recipeNameText = view.findViewById<TextView>(R.id.recipe_name)
         recipeNameText.text = recipe.title
@@ -76,7 +77,7 @@ class RecipeDetailFragment : Fragment() {
     }
 
     private fun getRecipeInformation(recipeId: Int) {
-        val url = "https://api.spoonacular.com/recipes/" + recipeId.toString() + "/information?apiKey=33dde6e60fde4a11bc1040e239a4fdb3"
+        val url = "https://api.spoonacular.com/recipes/" + recipeId.toString() + "/information?apiKey=c08a9abc204a46908523eeddcf170c27"
         val apiService = MyApiService()
         apiService.makeApiRequest(url, MyCallback(this))
     }

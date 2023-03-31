@@ -96,5 +96,6 @@ data class RecipeInformation(
     )
 
 data class RecipeInstructions(
+    val number: Int,
     val step: String,
 )
