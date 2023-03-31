@@ -300,7 +300,8 @@ class AddItemFragment : Fragment() {
         reader.readLines().forEach {
             ingredientsListFromCSV.add(it)
         }
-//         Adding Dropdown options for ingredient name and unit
+//      Adding Dropdown options for ingredient name, label, and unit
+        val labels = arrayOf("Fruits", "Vegetables", "Meat")
         val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds", "Count")
         val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, ingredientsListFromCSV)
         val unitsArray = ArrayAdapter(requireContext(), R.layout.list_item, units)
@@ -308,6 +309,8 @@ class AddItemFragment : Fragment() {
         binding.unit.setAdapter(unitsArray)
         binding.unit.setText("Count", false)
 
+        // Add default labels
+        labels.forEach { viewModel.addNewLabel(it) }
         // populate labels dropdown from table
         viewModel.allLabels.observe(this.viewLifecycleOwner) { labels ->
             labels?.let {
