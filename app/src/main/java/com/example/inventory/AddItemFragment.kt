@@ -160,6 +160,7 @@ class AddItemFragment : Fragment() {
      */
     private fun addNewItem() {
         if (isEntryValid()) {
+            viewModel.addNewLabel(binding.label.text.toString())
             viewModel.addNewItem(
                 binding.name.text.toString(),
                 binding.expiryDate.text.toString(),
@@ -178,6 +179,7 @@ class AddItemFragment : Fragment() {
      */
     private fun updateItem() {
         if (isEntryValid()) {
+            viewModel.addNewLabel(this.binding.label.text.toString())
             viewModel.updateItem(
                 this.navigationArgs.itemId,
                 this.binding.name.text.toString(),
@@ -298,16 +300,21 @@ class AddItemFragment : Fragment() {
         reader.readLines().forEach {
             ingredientsListFromCSV.add(it)
         }
-//         Adding Dropdown options for ingredient name, label and unit
-        val labels = viewModel.allLabels
+//         Adding Dropdown options for ingredient name and unit
         val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds", "Count")
         val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, ingredientsListFromCSV)
-        val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, labels.value.orEmpty())
         val unitsArray = ArrayAdapter(requireContext(), R.layout.list_item, units)
         binding.name.setAdapter(namesArray)
-        binding.label.setAdapter(labelsArray)
         binding.unit.setAdapter(unitsArray)
         binding.unit.setText("Count", false)
+
+        // populate labels dropdown from table
+        viewModel.allLabels.observe(this.viewLifecycleOwner) { labels ->
+            labels?.let {
+                val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, it)
+                binding.label.setAdapter(labelsArray)
+            }
+        }
 
         val expiryDate = binding.expiryDate
         expiryDate.setOnFocusChangeListener { _, hasFocus ->

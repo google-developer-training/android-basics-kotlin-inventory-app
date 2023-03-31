@@ -133,7 +133,7 @@ class InventoryViewModel(private val itemDao: ItemDao, private val labelDao: Lab
     }
 
     /**
-     * Inserts the new Label into database.
+     * Inserts the new Label into database if it doesnt exist.
      */
     fun addNewLabel(
         name: String
