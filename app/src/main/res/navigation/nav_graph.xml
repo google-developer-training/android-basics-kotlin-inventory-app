@@ -78,8 +78,19 @@
         android:name="com.example.inventory.RecipeDetailFragment"
         android:label="@string/recipe_detail_fragment_title"
         tools:layout="@layout/fragment_recipe_detail">
-
         <argument android:name="recipe"
             app:argType="com.example.inventory.Recipe" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_recipeInstructionsFragment"
+            app:destination="@id/recipeInstructionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeInstructionsFragment"
+        android:name="com.example.inventory.RecipeInstructionsFragment"
+        android:label="Recipe Instructions"
+        tools:layout="@layout/fragment_recipe_instructions">
+        <argument
+            android:name="recipeId"
+            app:argType="integer" />
     </fragment>
 </navigation>
