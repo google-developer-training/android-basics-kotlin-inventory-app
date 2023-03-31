@@ -46,7 +46,7 @@ class RecipeListFragment : Fragment() {
     }
 
     private fun getRecipes() {
-        val url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=33dde6e60fde4a11bc1040e239a4fdb3&ingredients=apples,+flour,+sugar&number=1"
+        val url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=c08a9abc204a46908523eeddcf170c27&ingredients=apples,+flour,+sugar"
         val apiService = MyApiService()
         apiService.makeApiRequest(url, MyCallback(this))
     }
