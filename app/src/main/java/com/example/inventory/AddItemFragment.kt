@@ -81,7 +81,7 @@ class AddItemFragment : Fragment() {
     private var imageBitmap: Bitmap? = null
     private var imageByte: ByteArray? = null
     private var bos: ByteArrayOutputStream? = ByteArrayOutputStream();
-    private var foodNameFound: Boolean = false
+    private var foodNameFound: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -273,13 +273,13 @@ class AddItemFragment : Fragment() {
 
                 for (i in 0 until listAdapter.count) {
                     val temp = listAdapter.getItem(i).toString()
-                    if (foodName.text.toString().toLowerCase().compareTo(temp) === 0) {
+                    if (foodName.text.toString().lowercase().compareTo(temp) === 0) {
                         foodNameFound = true
                         return@OnFocusChangeListener
                     }
                 }
                 foodNameFound = false
-                // foodName.setText("")
+                binding.name.error = "Please enter a food name in the list"
             }
         }
     }
