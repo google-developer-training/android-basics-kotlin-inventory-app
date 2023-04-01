@@ -31,6 +31,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
@@ -80,6 +81,7 @@ class AddItemFragment : Fragment() {
     private var imageBitmap: Bitmap? = null
     private var imageByte: ByteArray? = null
     private var bos: ByteArrayOutputStream? = ByteArrayOutputStream();
+    private var foodNameFound: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -104,8 +106,11 @@ class AddItemFragment : Fragment() {
             binding.quantity.text.toString()
         ))
         var formValid = true
-        if (!nameValid || !expiryDateValid || !quantityValid) {
+        if (!nameValid || !foodNameFound || !expiryDateValid || !quantityValid) {
             formValid = false
+            if (!foodNameFound) {
+                binding.name.error = "Please enter a food name in the list"
+            }
             if (!nameValid) {
                 binding.name.error = "ingredient name cannot be empty"
             }
@@ -144,7 +149,10 @@ class AddItemFragment : Fragment() {
             quantity.setText(item.quantity.toString(), TextView.BufferType.SPANNABLE)
             unit.setText(item.unit.toString(), TextView.BufferType.SPANNABLE)
             binding.imageView.setImageBitmap(loadImageByte)
-            saveAction.setOnClickListener { updateItem() }
+            saveAction.setOnClickListener {
+                binding.name.clearFocus()
+                updateItem()
+            }
         }
 
         if (item.imageByte == null) {
@@ -254,6 +262,28 @@ class AddItemFragment : Fragment() {
         })
     }
 
+    private fun checkNameLabel() {
+        val foodName = binding.name
+        Log.e("foodName", foodName.text.toString())
+
+        foodName.onFocusChangeListener = OnFocusChangeListener { _, b ->
+            if (!b) {
+                // on focus off
+                val listAdapter = binding.name.adapter
+
+                for (i in 0 until listAdapter.count) {
+                    val temp = listAdapter.getItem(i).toString()
+                    if (foodName.text.toString().lowercase().compareTo(temp) === 0) {
+                        foodNameFound = true
+                        return@OnFocusChangeListener
+                    }
+                }
+                foodNameFound = false
+                binding.name.error = "Please enter a food name in the list"
+            }
+        }
+    }
+
 
     // File upload: Stores the image the user selects from their gallery into the 'imagePath' variable
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -333,6 +363,12 @@ class AddItemFragment : Fragment() {
                 setUpQuantityText()
             }
         }
+        val foodName = binding.name
+        foodName.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                checkNameLabel()
+            }
+        }
         val id = navigationArgs.itemId
 
         // Protocol for editing an existing item
@@ -342,9 +378,10 @@ class AddItemFragment : Fragment() {
                 bind(item)
             }
 
-            // Protocol for adding a new item
+        // Protocol for adding a new item
         } else {
             binding.saveAction.setOnClickListener {
+                binding.name.clearFocus()
                 addNewItem()
             }
         }
@@ -355,6 +392,7 @@ class AddItemFragment : Fragment() {
             startActivityForResult(gallery, pickImage)
         }
 
+        // Opens the phone's camera tool
         binding.takePhoto.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
