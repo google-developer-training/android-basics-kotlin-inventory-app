@@ -17,6 +17,7 @@ package com.example.inventory.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -26,7 +27,13 @@ import java.util.concurrent.TimeUnit
 /**
  * Entity data class represents a single row in the database.
  */
-@Entity
+@Entity(foreignKeys = [ForeignKey(
+    entity = Label::class,
+    parentColumns = ["name"],
+    childColumns = ["label"],
+    onDelete = ForeignKey.SET_NULL
+)]
+)
 data class Item(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,

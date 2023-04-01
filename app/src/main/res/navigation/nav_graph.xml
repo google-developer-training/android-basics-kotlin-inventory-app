@@ -26,7 +26,9 @@
         tools:layout="@layout/item_list_fragment">
         <action
             android:id="@+id/action_itemListFragment_to_itemDetailFragment"
-            app:destination="@id/itemDetailFragment" />
+            app:destination="@id/itemDetailFragment"
+            app:popUpTo="@id/itemListFragment"
+            app:popUpToSaveState="true"/>
         <action
             android:id="@+id/action_itemListFragment_to_addItemFragment"
             app:destination="@id/addItemFragment" />
