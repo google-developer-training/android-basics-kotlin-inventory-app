@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/itemListFragment"
+        android:title="@string/homepage"
+        android:enabled="true"
+        android:icon="@drawable/ic_home" />
+    <item android:id="@+id/addItemFragment"
+        android:title="@string/new_ingredient"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_input_add" />
+    <item android:id="@+id/action_foodbank"
+        android:title="@string/find_foodbanks"
+        android:enabled="true"
+        android:icon="@drawable/ic_nearby" />
+    <item
+        android:id="@+id/uncheckedItem"
+        android:visible="false"
+        android:title="" />
+</menu>

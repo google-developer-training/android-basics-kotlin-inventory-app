@@ -45,7 +45,9 @@
     <string name="expiration_message">%1$s expires in %2$d days</string>
     <string name="ingredient">Ingredient</string>
     <string name="expiry_in">Expiry</string>
-    <string name="findFoodbanks">Find nearby foodbanks</string>
+    <string name="find_foodbanks">Find Foodbanks</string>
+    <string name="new_ingredient">New Ingredient</string>
     <string name="expiry_hint">Ingredient expired. Please discard and delete.</string>
     <string name="consumed_hint">Ingredient consumed. Please delete.</string>
+    <string name="homepage">Homepage</string>
 </resources>

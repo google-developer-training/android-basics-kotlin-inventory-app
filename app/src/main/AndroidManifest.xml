@@ -26,7 +26,8 @@
         android:theme="@style/Theme.InventoryApp">
         <activity
             android:exported="true"
-            android:name="com.example.inventory.MainActivity">
+            android:name="com.example.inventory.MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
