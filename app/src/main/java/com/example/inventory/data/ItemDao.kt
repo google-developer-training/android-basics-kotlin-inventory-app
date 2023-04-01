@@ -35,8 +35,8 @@ interface ItemDao {
     @Query("SELECT * from item where name like '%'||:searchText||'%'")
     fun getSearchedItems(searchText:String):List<Item>
 
-    @Query("SELECT * FROM item WHERE name LIKE '%' || :searchText || '%' AND label = :selectedLabel")
-    fun getFilteredItems(searchText: String, selectedLabel: String): List<Item>
+    @Query("SELECT * FROM item WHERE label = :selectedLabel")
+    fun getFilteredItems(selectedLabel: String): List<Item>
 
     @Query("SELECT DISTINCT label FROM item")
     fun getAllLabels(): List<String>

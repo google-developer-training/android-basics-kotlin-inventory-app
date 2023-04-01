@@ -37,7 +37,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         }
     }
 
-    fun filterItems(selectedLabel: String){
+    fun filterItems(selectedLabel: String=""){
         viewModelScope.launch(Dispatchers.IO) {
             allItems.postValue(itemDao.getFilteredItems(selectedLabel))
         }
