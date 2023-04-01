@@ -35,6 +35,12 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.inventory.workers.NotificationWorker
+import com.google.gson.Gson
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.concurrent.TimeUnit
 
@@ -87,6 +93,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 
+
     /**
      * Handle navigation when the user chooses Up from the action bar.
      */
@@ -118,3 +125,5 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 }
+
+

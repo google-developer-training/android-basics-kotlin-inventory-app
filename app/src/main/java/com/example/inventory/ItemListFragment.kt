@@ -77,6 +77,11 @@ class ItemListFragment : Fragment() {
             this.findNavController().navigate(action)
         }
 
+        binding.recipesButton.setOnClickListener {
+            val action = ItemListFragmentDirections.actionItemListFragmentToRecipeListFragment()
+            this.findNavController().navigate(action)
+        }
+
         binding.grocerySearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {

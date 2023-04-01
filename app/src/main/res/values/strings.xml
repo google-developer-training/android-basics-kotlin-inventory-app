@@ -23,6 +23,8 @@
     <string name="item_price_req">Item Price <font color='#FF0000'>*</font></string>
     <string name="save_action">Save</string>
     <string name="item_detail_fragment_title">Item Details</string>
+    <string name="recipe_list_fragment_title">Recipe List</string>
+    <string name="recipe_detail_fragment_title">Recipe Details</string>
     <string name="add_fragment_title">Add Item</string>
     <string name="edit_fragment_title">Edit Item</string>
     <string name="price">Price</string>

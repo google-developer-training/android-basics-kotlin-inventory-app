@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_itemListFragment_to_addItemFragment"
             app:destination="@id/addItemFragment" />
+        <action
+            android:id="@+id/action_itemListFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemDetailFragment"
@@ -62,5 +65,34 @@
             app:destination="@id/itemListFragment"
             app:popUpTo="@id/itemListFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.example.inventory.RecipeListFragment"
+        android:label="@string/recipe_list_fragment_title"
+        tools:layout="@layout/recipe_list_fragment">
+    <action
+        android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
+        app:destination="@id/recipeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.inventory.RecipeDetailFragment"
+        android:label="@string/recipe_detail_fragment_title"
+        tools:layout="@layout/fragment_recipe_detail">
+        <argument android:name="recipe"
+            app:argType="com.example.inventory.Recipe" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_recipeInstructionsFragment"
+            app:destination="@id/recipeInstructionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeInstructionsFragment"
+        android:name="com.example.inventory.RecipeInstructionsFragment"
+        android:label="Recipe Instructions"
+        tools:layout="@layout/fragment_recipe_instructions">
+        <argument
+            android:name="recipeId"
+            app:argType="integer" />
     </fragment>
 </navigation>
