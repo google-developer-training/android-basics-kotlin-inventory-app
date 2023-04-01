@@ -28,6 +28,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -262,7 +263,7 @@ class AddItemFragment : Fragment() {
         if (resultCode == RESULT_OK && (requestCode == pickImage || requestCode == REQUEST_IMAGE_CAPTURE)) {
 
             // For processing the gallery-retrieved image
-            if (resultCode == RESULT_OK && requestCode == pickImage) {
+            if (requestCode == pickImage) {
                 imagePath = data?.data
                 imageBitmap = if (Build.VERSION.SDK_INT >= 28) {
                     val source =
@@ -272,12 +273,13 @@ class AddItemFragment : Fragment() {
                     MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, imagePath!!)
                 }
 
-                // For processing the camera image
-            } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
+            // For processing the camera image
+            } else if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 imageBitmap = data?.extras?.get("data") as Bitmap
             }
 
             binding.imageView.setImageBitmap(imageBitmap)
+            bos = ByteArrayOutputStream();
             imageBitmap?.compress(Bitmap.CompressFormat.JPEG, 33, bos)
             imageByte = bos?.toByteArray();
             binding.imageView.visibility = View.VISIBLE
