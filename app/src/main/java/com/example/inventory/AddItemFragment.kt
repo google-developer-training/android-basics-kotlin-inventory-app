@@ -145,9 +145,9 @@ class AddItemFragment : Fragment() {
         binding.apply {
             name.setText(item.name, TextView.BufferType.SPANNABLE)
             expiryDate.setText(item.expiryDate, TextView.BufferType.SPANNABLE)
-            label.setText(item.label.toString(), TextView.BufferType.SPANNABLE)
+            label.setText(item.label.toString(), false)
             quantity.setText(item.quantity.toString(), TextView.BufferType.SPANNABLE)
-            unit.setText(item.unit.toString(), TextView.BufferType.SPANNABLE)
+            unit.setText(item.unit.toString(), false)
             binding.imageView.setImageBitmap(loadImageByte)
             saveAction.setOnClickListener {
                 binding.name.clearFocus()

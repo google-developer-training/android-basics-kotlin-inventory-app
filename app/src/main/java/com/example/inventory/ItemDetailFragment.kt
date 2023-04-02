@@ -76,12 +76,17 @@ class ItemDetailFragment : Fragment() {
         } else {
             BitmapFactory.decodeByteArray(item.imageByte, 0, item.imageByte!!.size)
         }
+        val quantityString = if (item.unit != "Count") {
+            "${item.quantity} ${item.unit}"
+        } else {
+            item.quantity.toString()
+        }
 
         binding.apply {
             name.text = item.name
             expiryDate.text = item.expiryDate
             label.text = item.label.toString()
-            quantity.text = item.quantity.toString()
+            quantity.text = quantityString
             decrementItem.isEnabled = viewModel.isStockAvailable(item)
             incrementItem.isEnabled = viewModel.isStockAvailable(item)
             decrementItem.setOnClickListener {
