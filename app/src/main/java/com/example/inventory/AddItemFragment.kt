@@ -286,7 +286,22 @@ class AddItemFragment : Fragment() {
             ingredientsListFromCSV.add(it)
         }
 //         Adding Dropdown options for ingredient name, label and unit
-        val labels = arrayOf("Fruits", "Vegetables", "Meat")
+        val labels = arrayOf(
+            "Fruits",
+            "Vegetables",
+            "Meat",
+            "Canned Goods",
+            "Dairy",
+            "Meat",
+            "Seafood",
+            "Deli",
+            "Condiments",
+            "Snacks",
+            "Bakery",
+            "Beverages",
+            "Pasta, Rice, and Cereal",
+            "Frozen"
+        )
         val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds", "Count")
         val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, ingredientsListFromCSV)
         val labelsArray = ArrayAdapter(requireContext(), R.layout.list_item, labels)

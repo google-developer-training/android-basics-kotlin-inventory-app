@@ -35,6 +35,9 @@ interface ItemDao {
     @Query("SELECT * from item where name like '%'||:searchText||'%'")
     fun getSearchedItems(searchText:String):List<Item>
 
+    @Query("SELECT * from item ORDER BY name ASC")
+    fun getAllItems(): List<Item>
+
     @Query("SELECT * FROM item WHERE label = :selectedLabel")
     fun getFilteredItems(selectedLabel: String): List<Item>
 
