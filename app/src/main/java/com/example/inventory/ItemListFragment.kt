@@ -36,7 +36,8 @@ import com.example.inventory.databinding.ItemListFragmentBinding
 class ItemListFragment : Fragment() {
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
-            (activity?.application as InventoryApplication).database.itemDao()
+            (activity?.application as InventoryApplication).database.itemDao(),
+            (activity?.application as InventoryApplication).database.labelDao()
         )
     }
 
@@ -74,6 +75,11 @@ class ItemListFragment : Fragment() {
             val action = ItemListFragmentDirections.actionItemListFragmentToAddItemFragment(
                 getString(R.string.add_fragment_title)
             )
+            this.findNavController().navigate(action)
+        }
+
+        binding.recipesButton.setOnClickListener {
+            val action = ItemListFragmentDirections.actionItemListFragmentToRecipeListFragment()
             this.findNavController().navigate(action)
         }
 

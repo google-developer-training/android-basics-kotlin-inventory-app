@@ -18,18 +18,30 @@ package com.example.inventory
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.inventory.workers.NotificationWorker
+import com.google.gson.Gson
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -50,12 +62,37 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController = navHostFragment.navController
         // Set up the action bar for use with the NavController
         setupActionBarWithNavController(this, navController)
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNav.setupWithNavController(navController)
+        bottomNav.setOnItemSelectedListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.action_foodbank -> {
+                    val gmmIntentUri = Uri.parse("geo:0,0?q=food donation")
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    startActivity(mapIntent)
+                    false
+                }
+                else -> {
+                    item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+                    true
+                }
+            }
+        }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when (destination.id) {
+                R.id.itemDetailFragment -> bottomNav.menu.findItem(R.id.uncheckedItem).isChecked = true
+                R.id.addItemFragment -> if (arguments?.containsKey("item_id")!!) { bottomNav.menu.findItem(R.id.uncheckedItem).isChecked = true }
+            }
+        }
+
 
         // Set up notifications channel and service
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS ) == PackageManager.PERMISSION_GRANTED) {
             setupNotifications()
         }
     }
+
 
     /**
      * Handle navigation when the user chooses Up from the action bar.
@@ -88,3 +125,5 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 }
+
+
