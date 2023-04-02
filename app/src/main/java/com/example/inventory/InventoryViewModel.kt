@@ -40,6 +40,17 @@ class InventoryViewModel(private val itemDao: ItemDao, private val labelDao: Lab
         }
     }
 
+    fun getAllItems(){
+        viewModelScope.launch(Dispatchers.IO) {
+            allItems.postValue(itemDao.getAllItems())
+        }
+    }
+    fun filterItems(selectedLabel: String=""){
+        viewModelScope.launch(Dispatchers.IO) {
+            allItems.postValue(itemDao.getFilteredItems(selectedLabel))
+        }
+    }
+
     /**
      * Returns true if stock is available to sell, false otherwise.
      */
