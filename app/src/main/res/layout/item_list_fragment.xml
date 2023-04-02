@@ -131,6 +131,7 @@
             app:layout_constraintTop_toBottomOf="@+id/grocerySearchView" />
 
         <HorizontalScrollView
+            android:id="@+id/filterButtonView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none">
@@ -147,7 +148,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="All"/>
-    <!--                android:onClick="filterAll"/>-->
 
                 <Button
                     android:id="@+id/Fruits"
@@ -155,7 +155,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Fruits"/>
-    <!--                android:onClick="filterFruits"/>-->
 
                 <Button
                     android:id="@+id/Vegetables"
@@ -163,7 +162,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Vegetables"/>
-    <!--                android:onClick="filterVegetables"/>-->
 
                 <Button
                     android:id="@+id/Canned"
@@ -171,7 +169,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Canned Goods"/>
-    <!--                android:onClick="filterCanned"/>-->
 
                 <Button
                     android:id="@+id/Dairy"
@@ -179,7 +176,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Dairy"/>
-    <!--                android:onClick="filterDairy"/>-->
 
                 <Button
                     android:id="@+id/Meat"
@@ -187,7 +183,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Meat"/>
-    <!--                android:onClick="filterMeat"/>-->
 
                 <Button
                     android:id="@+id/Seafood"
@@ -195,7 +190,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Seafood"/>
-    <!--                android:onClick="filterSeafood"/>-->
 
                 <Button
                     android:id="@+id/Deli"
@@ -203,7 +197,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Deli"/>
-    <!--                android:onClick="filterDeli"/>-->
 
                 <Button
                     android:id="@+id/Condiments"
@@ -211,7 +204,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Condiments"/>
-    <!--                android:onClick="filterCondiments"/>-->
 
                 <Button
                     android:id="@+id/Snacks"
@@ -219,7 +211,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Snacks"/>
-    <!--                android:onClick="filterSnacks"/>-->
 
                 <Button
                     android:id="@+id/Bakery"
@@ -227,7 +218,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Bakery"/>
-    <!--                android:onClick="filterBakery"/>-->
 
                 <Button
                     android:id="@+id/Beverages"
@@ -235,7 +225,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Beverages"/>
-    <!--                android:onClick="filterBeverages"/>-->
 
                 <Button
                     android:id="@+id/PRC"
@@ -243,7 +232,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Pasta, Rice and Cereal"/>
-    <!--                android:onClick="filterPRC"/>-->
 
                 <Button
                     android:id="@+id/Frozen"
@@ -251,7 +239,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:text="Frozen"/>
-    <!--                android:onClick="filterFrozen"/>-->
 
             </LinearLayout>
 

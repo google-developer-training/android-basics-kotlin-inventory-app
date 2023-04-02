@@ -332,8 +332,24 @@ class AddItemFragment : Fragment() {
         reader.readLines().forEach {
             ingredientsListFromCSV.add(it)
         }
-//      Adding Dropdown options for ingredient name, label, and unit
-        val labels = arrayOf("Fruits", "Vegetables", "Meat")
+//         Adding Dropdown options for ingredient name, label and unit
+        val labels = arrayOf(
+            "Fruits",
+            "Vegetables",
+            "Meat",
+            "Canned Goods",
+            "Dairy",
+            "Meat",
+            "Seafood",
+            "Deli",
+            "Condiments",
+            "Snacks",
+            "Bakery",
+            "Beverages",
+            "Pasta, Rice, and Cereal",
+            "Frozen"
+        )
+        
         val units = arrayOf("Grams", "Kilograms", "Litres", "Ounces", "Pounds", "Count")
         val namesArray = ArrayAdapter(requireContext(), R.layout.list_item, ingredientsListFromCSV)
         val unitsArray = ArrayAdapter(requireContext(), R.layout.list_item, units)
