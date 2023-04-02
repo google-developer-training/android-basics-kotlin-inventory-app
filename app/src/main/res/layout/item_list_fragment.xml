@@ -23,67 +23,238 @@
     tools:context=".ItemListFragment">
 
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/name"
         style="@style/Widget.Inventory.Header"
         android:layout_marginStart="@dimen/margin_between_elements"
-        android:text="@string/item"
-        app:layout_constraintEnd_toStartOf="@+id/item_price"
+        android:text="@string/ingredient"
+        app:layout_constraintEnd_toStartOf="@+id/expiry_date"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/item_price"
+        android:id="@+id/expiry_date"
         style="@style/Widget.Inventory.Header"
-        android:layout_below="@+id/item_name"
+        android:layout_below="@+id/name"
         android:layout_marginStart="@dimen/margin_between_elements"
-        android:text="@string/price"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/item_quantity"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_name"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/item_quantity"
-        style="@style/Widget.Inventory.Header"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="@dimen/margin_between_elements"
-        android:text="@string/quantity_in_stock"
+        android:text="@string/expiry_in"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/item_price"
+        app:layout_constraintStart_toEndOf="@+id/name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider"
         style="@style/Divider"
-        android:layout_marginTop="@dimen/margin_between_elements"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_quantity" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_between_elements"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/expiry_date" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_between_elements"
-        android:layout_marginBottom="@dimen/margin_between_elements"
+        android:layout_marginEnd="4dp"
         android:contentDescription="@string/add_new_item"
         android:src="@android:drawable/ic_input_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider1"
+        app:tint="@android:color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/foodBankButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:contentDescription="@string/find_foodbanks"
+        android:src="@drawable/ic_nearby"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider1"
+        app:tint="@android:color/white"/>
+
+    <View
+        android:id="@+id/divider1"
+        style="@style/Divider"
+        android:layout_marginTop="@dimen/margin_between_elements"
+        app:layout_constraintBottom_toTopOf="@+id/SFContainerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/SFContainerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton">
+
+        <View
+            android:id="@+id/divider3"
+            style="@style/Divider"
+            android:layout_marginTop="@dimen/margin_between_elements"
+            android:layout_marginBottom="@dimen/margin_between_elements"
+            app:layout_constraintBottom_toTopOf="@+id/SFContainerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grocerySearchView" />
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/grocerySearchView"
+            android:iconifiedByDefault="false"
+            android:queryHint="GroceryName"/>
+
+        <View
+            android:id="@+id/divider2"
+            style="@style/Divider"
+            android:layout_marginTop="@dimen/margin_between_elements"
+            android:layout_marginBottom="@dimen/margin_between_elements"
+            app:layout_constraintBottom_toTopOf="@+id/SFContainerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grocerySearchView" />
+
+        <HorizontalScrollView
+            android:id="@+id/filterButtonView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/All"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="All"/>
+
+                <Button
+                    android:id="@+id/Fruits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Fruits"/>
+
+                <Button
+                    android:id="@+id/Vegetables"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Vegetables"/>
+
+                <Button
+                    android:id="@+id/Canned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Canned Goods"/>
+
+                <Button
+                    android:id="@+id/Dairy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Dairy"/>
+
+                <Button
+                    android:id="@+id/Meat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Meat"/>
+
+                <Button
+                    android:id="@+id/Seafood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Seafood"/>
+
+                <Button
+                    android:id="@+id/Deli"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Deli"/>
+
+                <Button
+                    android:id="@+id/Condiments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Condiments"/>
+
+                <Button
+                    android:id="@+id/Snacks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Snacks"/>
+
+                <Button
+                    android:id="@+id/Bakery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Bakery"/>
+
+                <Button
+                    android:id="@+id/Beverages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Beverages"/>
+
+                <Button
+                    android:id="@+id/PRC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Pasta, Rice and Cereal"/>
+
+                <Button
+                    android:id="@+id/Frozen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:text="Frozen"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/recipesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:text="Recipes"
+        app:layout_constraintBottom_toTopOf="@+id/SFContainerView"
+        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+        app:layout_constraintHorizontal_bias="0.979"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

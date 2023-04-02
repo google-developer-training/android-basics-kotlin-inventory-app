@@ -16,29 +16,46 @@
 
 package com.example.inventory
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.inventory.data.Item
 import com.example.inventory.data.ItemDao
+import com.example.inventory.data.Label
+import com.example.inventory.data.LabelDao
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
  * View Model to keep a reference to the Inventory repository and an up-to-date list of all items.
  *
  */
-class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
-
+class InventoryViewModel(private val itemDao: ItemDao, private val labelDao: LabelDao) : ViewModel() {
+    val allItems: MutableLiveData<List<Item>> = MutableLiveData<List<Item>>()
     // Cache all items form the database using LiveData.
-    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
+    //    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
+
+    val allLabels: LiveData<List<Label>> = labelDao.getLabels().asLiveData()
+    fun getItems(searchString: String=""){
+        viewModelScope.launch(Dispatchers.IO) {
+            allItems.postValue(itemDao.getSearchedItems(searchString))
+        }
+    }
+
+    fun getAllItems(){
+        viewModelScope.launch(Dispatchers.IO) {
+            allItems.postValue(itemDao.getAllItems())
+        }
+    }
+    fun filterItems(selectedLabel: String=""){
+        viewModelScope.launch(Dispatchers.IO) {
+            allItems.postValue(itemDao.getFilteredItems(selectedLabel))
+        }
+    }
 
     /**
      * Returns true if stock is available to sell, false otherwise.
      */
     fun isStockAvailable(item: Item): Boolean {
-        return (item.quantityInStock > 0)
+        return (item.quantity > 0)
     }
 
     /**
@@ -46,11 +63,14 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      */
     fun updateItem(
         itemId: Int,
-        itemName: String,
-        itemPrice: String,
-        itemCount: String
+        name: String,
+        expiryDate: String,
+        label: String,
+        quantity: String,
+        unit: String,
+        imageByte: ByteArray?,
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPrice, itemCount)
+        val updatedItem = getUpdatedItemEntry(itemId, name, expiryDate, label, quantity, unit, imageByte)
         updateItem(updatedItem)
     }
 
@@ -68,9 +88,17 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Decreases the stock by one unit and updates the database.
      */
     fun sellItem(item: Item) {
-        if (item.quantityInStock > 0) {
+        if (item.quantity > 0) {
             // Decrease the quantity by 1
-            val newItem = item.copy(quantityInStock = item.quantityInStock - 1)
+            val newItem = item.copy(quantity = item.quantity - 1)
+            updateItem(newItem)
+        }
+    }
+
+    fun incrementItem(item: Item) {
+        if (item.quantity > 0) {
+            // Decrease the quantity by 1
+            val newItem = item.copy(quantity = item.quantity + 1)
             updateItem(newItem)
         }
     }
@@ -78,8 +106,15 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Inserts the new Item into database.
      */
-    fun addNewItem(itemName: String, itemPrice: String, itemCount: String) {
-        val newItem = getNewItemEntry(itemName, itemPrice, itemCount)
+    fun addNewItem(
+        name: String,
+        expiryDate: String,
+        label: String,
+        quantity: String,
+        unit: String,
+        imageByte: ByteArray?,
+    ) {
+        val newItem = getNewItemEntry(name, expiryDate, label, quantity, unit, imageByte)
         insertItem(newItem)
     }
 
@@ -109,10 +144,45 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     }
 
     /**
+     * Inserts the new Label into database if it doesnt exist.
+     */
+    fun addNewLabel(
+        name: String
+    ) {
+        val newLabel = Label(name)
+        insertLabel(newLabel)
+    }
+
+    /**
+     * Launching a new coroutine to insert an item in a non-blocking way
+     */
+    private fun insertLabel(label: Label) {
+        viewModelScope.launch {
+            labelDao.insert(label)
+        }
+    }
+
+    /**
+     * Launching a new coroutine to delete an item in a non-blocking way
+     */
+    fun deleteLabel(label: Label) {
+        viewModelScope.launch {
+            labelDao.delete(label)
+        }
+    }
+
+    /**
+     * Retrieve an item from the repository.
+     */
+    fun retrieveLabel(name: String): LiveData<Label> {
+        return labelDao.getLabel(name).asLiveData()
+    }
+
+    /**
      * Returns true if the EditTexts are not empty
      */
-    fun isEntryValid(itemName: String, itemPrice: String, itemCount: String): Boolean {
-        if (itemName.isBlank() || itemPrice.isBlank() || itemCount.isBlank()) {
+    fun isEntryValid(field: String): Boolean {
+        if (field.isBlank()) {
             return false
         }
         return true
@@ -122,11 +192,21 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Returns an instance of the [Item] entity class with the item info entered by the user.
      * This will be used to add a new entry to the Inventory database.
      */
-    private fun getNewItemEntry(itemName: String, itemPrice: String, itemCount: String): Item {
+    private fun getNewItemEntry(
+        name: String,
+        expiryDate: String,
+        label: String,
+        quantity: String,
+        unit:String,
+        imageByte: ByteArray?,
+    ): Item {
         return Item(
-            itemName = itemName,
-            itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            name = name,
+            expiryDate = expiryDate,
+            label = label,
+            quantity = quantity.toDouble(),
+            unit = unit,
+            imageByte = imageByte
         )
     }
 
@@ -136,15 +216,21 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      */
     private fun getUpdatedItemEntry(
         itemId: Int,
-        itemName: String,
-        itemPrice: String,
-        itemCount: String
+        name: String,
+        expiryDate: String,
+        label: String,
+        quantity: String,
+        unit: String,
+        imageByte: ByteArray?
     ): Item {
         return Item(
             id = itemId,
-            itemName = itemName,
-            itemPrice = itemPrice.toDouble(),
-            quantityInStock = itemCount.toInt()
+            name = name,
+            expiryDate = expiryDate,
+            label = label,
+            quantity = quantity.toDouble(),
+            unit = unit,
+            imageByte = imageByte
         )
     }
 }
@@ -152,11 +238,11 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 /**
  * Factory class to instantiate the [ViewModel] instance.
  */
-class InventoryViewModelFactory(private val itemDao: ItemDao) : ViewModelProvider.Factory {
+class InventoryViewModelFactory(private val itemDao: ItemDao, private val labelDao: LabelDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(InventoryViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return InventoryViewModel(itemDao) as T
+            return InventoryViewModel(itemDao, labelDao) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

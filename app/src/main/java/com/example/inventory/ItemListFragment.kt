@@ -16,10 +16,14 @@
 
 package com.example.inventory
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -32,7 +36,8 @@ import com.example.inventory.databinding.ItemListFragmentBinding
 class ItemListFragment : Fragment() {
     private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
-            (activity?.application as InventoryApplication).database.itemDao()
+            (activity?.application as InventoryApplication).database.itemDao(),
+            (activity?.application as InventoryApplication).database.labelDao()
         )
     }
 
@@ -72,5 +77,93 @@ class ItemListFragment : Fragment() {
             )
             this.findNavController().navigate(action)
         }
+
+        binding.recipesButton.setOnClickListener {
+            val action = ItemListFragmentDirections.actionItemListFragmentToRecipeListFragment()
+            this.findNavController().navigate(action)
+        }
+
+        binding.grocerySearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                p0?.let {
+                    viewModel.getItems(p0)
+                }
+                return true
+            }
+
+        })
+
+        binding.All.setOnClickListener{
+            viewModel.getAllItems()
+        }
+
+        binding.Fruits.setOnClickListener{
+            viewModel.filterItems("Fruits")
+        }
+
+        binding.Vegetables.setOnClickListener{
+            viewModel.filterItems("Vegetables")
+        }
+
+        binding.Canned.setOnClickListener{
+            viewModel.filterItems("Canned Goods")
+        }
+
+        binding.Dairy.setOnClickListener{
+            viewModel.filterItems("Dairy")
+        }
+
+        binding.Meat.setOnClickListener{
+            viewModel.filterItems("Meat")
+        }
+
+        binding.Seafood.setOnClickListener{
+            viewModel.filterItems("Seafood")
+        }
+
+        binding.Deli.setOnClickListener{
+            viewModel.filterItems("Deli")
+        }
+
+        binding.Condiments.setOnClickListener{
+            viewModel.filterItems("Condiments")
+        }
+
+        binding.Snacks.setOnClickListener{
+            viewModel.filterItems("Snacks")
+        }
+
+        binding.Bakery.setOnClickListener{
+            viewModel.filterItems("Bakery")
+        }
+
+        binding.Beverages.setOnClickListener{
+            viewModel.filterItems("Beverages")
+        }
+
+        binding.PRC.setOnClickListener{
+            viewModel.filterItems("Pasta, Rice, and Cereal")
+        }
+
+        binding.Frozen.setOnClickListener{
+            viewModel.filterItems("Frozen")
+        }
+
+        binding.foodBankButton.setOnClickListener {
+            val gmmIntentUri = Uri.parse("geo:0,0?q=food donation")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getItems()
     }
 }
